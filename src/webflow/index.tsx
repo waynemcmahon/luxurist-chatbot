@@ -10,7 +10,7 @@ interface WebflowChatConfig {
   containerId?: string;
 }
 
-const initChat = (config: WebflowChatConfig) => {
+function initChat(config: WebflowChatConfig) {
   const { projectId, apiKey, placement = 'floating', containerId } = config;
 
   // If containerId is provided, render inline
@@ -46,8 +46,8 @@ const initChat = (config: WebflowChatConfig) => {
       floatingContainer
     );
   }
-};
+}
 
-export default {
-  initChat
-}; 
+// Export the initChat function directly
+const LuxuristChatbot = { initChat };
+export default LuxuristChatbot; 

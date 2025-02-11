@@ -5,14 +5,10 @@ module.exports = {
   entry: "./src/webflow/index.tsx",
   output: {
     filename: "luxurist-chatbot.js",
-    path: path.resolve(__dirname, "dist"),
-    library: {
-      name: 'LuxuristChatbot',
-      type: 'umd',
-      export: 'default'
-    },
-    globalObject: 'this',
-    clean: true,
+    path: path.resolve(__dirname, "public/dist"),
+    library: "LuxuristChatbot",
+    libraryTarget: "umd",
+    globalObject: "this",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -29,8 +25,14 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: [
-              ["@babel/preset-env", { targets: "defaults" }],
-              ["@babel/preset-react", { runtime: "automatic" }],
+              ["@babel/preset-env", { 
+                targets: "> 0.25%, not dead",
+                modules: "umd"
+              }],
+              ["@babel/preset-react", { 
+                runtime: "automatic",
+                importSource: "react"
+              }],
               "@babel/preset-typescript"
             ],
             plugins: [
@@ -45,18 +47,11 @@ module.exports = {
       },
     ],
   },
-  externals: {
-    react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react'
-    },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom'
-    }
+  optimization: {
+    minimize: true
   },
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM"
+  }
 };
