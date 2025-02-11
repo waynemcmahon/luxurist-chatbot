@@ -29,6 +29,8 @@ export const VoiceflowChat = ({
   initialMessage = 'Hey! Ready to plan your trip?'
 }: VoiceflowChatProps) => {
   const [visible, setVisible] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [privacyChecked, setPrivacyChecked] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [buttons, setButtons] = useState<Button[]>([]);
@@ -130,23 +132,66 @@ export const VoiceflowChat = ({
     await interact(button.request);
   };
 
-  useEffect(() => {
-    // Start conversation
-    const startChat = async () => {
+  const handleStartChat = async () => {
+    if (!privacyChecked) return;
+    setShowChat(true);
+    // Start conversation after animation
+    setTimeout(async () => {
       setVisible(true);
       await interact({ type: 'launch' });
-    };
-    startChat();
-  }, []);
+    }, 500);
+  };
 
   const containerClasses = placement === 'inline'
     ? 'w-full h-full min-h-[600px] bg-white rounded-xl shadow-md'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
+  if (!showChat) {
+    return (
+      <div className={`${containerClasses} flex flex-col items-center justify-center p-8 space-y-8 welcome-screen`}>
+        <h2 className="text-3xl font-gilda text-gray-900 text-center leading-tight">
+          Ready to plan your luxury travel experience?
+        </h2>
+        <p className="text-gray-600 text-center">
+          Our AI travel concierge is here to craft your perfect journey.
+        </p>
+        <div className="flex items-center space-x-2 mt-4">
+          <input
+            type="checkbox"
+            id="privacy-consent"
+            checked={privacyChecked}
+            onChange={(e) => setPrivacyChecked(e.target.checked)}
+            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+          />
+          <label htmlFor="privacy-consent" className="text-sm text-gray-600">
+            I CONSENT TO RECEIVE COMMUNICATIONS AS PER THE{' '}
+            <a href="#" className="underline hover:text-primary">
+              PRIVACY POLICY
+            </a>
+          </label>
+        </div>
+        <button
+          onClick={handleStartChat}
+          disabled={!privacyChecked}
+          className={`
+            w-full px-8 py-4 text-white text-lg font-gilda tracking-widest
+            transition-all duration-300 ease-in-out transform
+            ${privacyChecked 
+              ? 'bg-primary hover:bg-primary/90 hover:-translate-y-1'
+              : 'bg-gray-300 cursor-not-allowed'
+            }
+          `}
+        >
+          LET'S START
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div
       id="voiceflow-chat-container"
-      className={`transition-opacity duration-500 ease-in-out font-hanken ${visible ? 'opacity-100' : 'opacity-0'} ${containerClasses}`}
+      className={`transition-all duration-500 ease-in-out font-hanken ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
       aria-live="polite"
       role="region"
       aria-label="Chat interface"
