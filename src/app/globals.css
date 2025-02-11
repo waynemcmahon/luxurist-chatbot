@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vf-primary-color: #007bff;
+  --vf-secondary-color: #f1f1f1;
+  --vf-text-color: #333;
+  --vf-background-color: white;
+}
+
+body {
+  @apply bg-gray-50;
+} 

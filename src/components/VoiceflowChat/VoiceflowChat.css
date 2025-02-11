@@ -1,0 +1,122 @@
+/* Custom styles for Voiceflow Chat */
+:root {
+  --vf-primary-color: hsla(23, 91.90%, 29.53%, 1.00);  /* Exact brown */
+  --vf-secondary-color: #FDF8F3; /* Light cream background */
+  --vf-text-color: #333;
+  --vf-background-color: white;
+  --vf-accent-color: #D4AF37; /* Gold */
+}
+
+/* Chat container styles */
+#voiceflow-chat-container {
+  transition: all 0.3s ease-in-out;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Message styles */
+#voiceflow-chat-container .message {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+#voiceflow-chat-container .message > div {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* User message specific styles */
+#voiceflow-chat-container .message.user > div {
+  background: var(--vf-primary-color);
+  border: 1px solid hsla(23, 91.90%, 29.53%, 0.1);
+}
+
+/* Assistant message specific styles */
+#voiceflow-chat-container .message.assistant > div {
+  background: var(--vf-secondary-color);
+  border: 1px solid hsla(23, 91.90%, 29.53%, 0.1);
+}
+
+/* Input area styles */
+#voiceflow-chat-container .input-area {
+  border-top: 1px solid hsla(23, 91.90%, 29.53%, 0.1);
+}
+
+#voiceflow-chat-container input {
+  border: 1px solid hsla(23, 91.90%, 29.53%, 0.2);
+  transition: all 0.2s ease;
+}
+
+#voiceflow-chat-container input:focus {
+  border-color: var(--vf-primary-color);
+  box-shadow: 0 0 0 2px hsla(23, 91.90%, 29.53%, 0.1);
+}
+
+#voiceflow-chat-container button {
+  background: var(--vf-primary-color);
+  transition: all 0.2s ease;
+}
+
+#voiceflow-chat-container button:hover:not(:disabled) {
+  background: hsla(23, 91.90%, 25%, 1.00);
+  transform: translateY(-1px);
+}
+
+/* Choice buttons */
+#voiceflow-chat-container .choice-button {
+  border: 1px solid hsla(23, 91.90%, 29.53%, 0.2);
+  background: white;
+  transition: all 0.2s ease;
+}
+
+#voiceflow-chat-container .choice-button:hover {
+  background: var(--vf-secondary-color);
+  border-color: var(--vf-primary-color);
+}
+
+/* Typing indicator */
+#voiceflow-chat-container .typing {
+  animation: typing 1.5s infinite;
+  color: var(--vf-primary-color);
+}
+
+/* Custom scrollbar */
+#voiceflow-chat-container ::-webkit-scrollbar {
+  width: 6px;
+}
+
+#voiceflow-chat-container ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#voiceflow-chat-container ::-webkit-scrollbar-thumb {
+  background: hsla(23, 91.90%, 29.53%, 0.2);
+  border-radius: 3px;
+}
+
+#voiceflow-chat-container ::-webkit-scrollbar-thumb:hover {
+  background: hsla(23, 91.90%, 29.53%, 0.4);
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #voiceflow-chat-container {
+    border-radius: 12px;
+    margin: 1rem 0;
+  }
+}
