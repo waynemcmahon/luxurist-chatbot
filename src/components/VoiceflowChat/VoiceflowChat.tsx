@@ -205,8 +205,8 @@ export const VoiceflowChat = ({
     >
       {/* Chat Header */}
       <div className="border-b border-gray-100 py-4">
-        <h2 className="text-lg font-bold gilda-display text-gray-900">Magic Quote</h2>
-        <p className="text-sm hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
+        <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2>
+        <p className="hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
       </div>
 
