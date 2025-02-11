@@ -143,33 +143,18 @@ export const VoiceflowChat = ({
   };
 
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[600px] bg-white rounded-xl shadow-md'
+    ? 'w-full h-full min-h-[400px]'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   if (!showChat) {
     return (
-      <div className={`${containerClasses} flex flex-col items-center justify-center p-8 space-y-8 welcome-screen`}>
-        <h2 className="text-3xl font-gilda text-gray-900 text-center leading-tight">
-          Ready to plan your luxury travel experience?
+      <div className={`${containerClasses} flex flex-col items-center justify-center space-y-8 welcome-screen`}>
+        <h2 className="text-2xl font-gilda text-gray-900 leading-tight">
+        Ready to create an unforgettable journey for your guests?
         </h2>
-        <p className="text-gray-600 text-center">
-          Our AI travel concierge is here to craft your perfect journey.
+        <p className="text-gray-600 font-extralight">
+        Simply click the button below, share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
-        <div className="flex items-center space-x-2 mt-4">
-          <input
-            type="checkbox"
-            id="privacy-consent"
-            checked={privacyChecked}
-            onChange={(e) => setPrivacyChecked(e.target.checked)}
-            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
-          />
-          <label htmlFor="privacy-consent" className="text-sm text-gray-600">
-            I CONSENT TO RECEIVE COMMUNICATIONS AS PER THE{' '}
-            <a href="#" className="underline hover:text-primary">
-              PRIVACY POLICY
-            </a>
-          </label>
-        </div>
         <button
           onClick={handleStartChat}
           disabled={!privacyChecked}
@@ -184,6 +169,22 @@ export const VoiceflowChat = ({
         >
           LET'S START
         </button>
+        <div className="flex items-start space-x-2 mt-4">
+          <input
+            type="checkbox"
+            id="privacy-consent"
+            checked={privacyChecked}
+            onChange={(e) => setPrivacyChecked(e.target.checked)}
+            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+          />
+          <label htmlFor="privacy-consent" className="text-xs font-extralight text-gray-600">
+            I CONSENT TO RECEIVE COMMUNICATIONS AS PER THE{' '}
+            <a href="#" className="underline hover:text-primary">
+              PRIVACY POLICY
+            </a>
+          </label>
+        </div>
+        
       </div>
     );
   }
@@ -197,14 +198,14 @@ export const VoiceflowChat = ({
       aria-label="Chat interface"
     >
       {/* Chat Header */}
-      <div className="border-b border-gray-100 p-4">
-        <h2 className="text-lg font-gilda text-gray-900">Luxury Travel Concierge</h2>
-        <p className="text-sm text-gray-500">Your personal travel planning assistant</p>
+      <div className="border-b border-gray-100 py-4">
+        <h2 className="text-lg font-bold font-gilda text-gray-900">Magic Quote</h2>
+        <p className="text-sm text-gray-500">Discover the perfect luxury travel experience for your guests</p>
       </div>
 
       {/* Chat messages */}
       <div className="flex flex-col h-[calc(100%-8rem)]">
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto py-4 space-y-4">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -233,7 +234,7 @@ export const VoiceflowChat = ({
 
         {/* Button choices */}
         {buttons.length > 0 && (
-          <div className="p-4 space-y-2">
+          <div className="py-4 space-y-2">
             {buttons.map((button, index) => (
               <button
                 key={index}
@@ -247,7 +248,7 @@ export const VoiceflowChat = ({
         )}
 
         {/* Input area */}
-        <div className="border-t p-4 input-area mt-auto">
+        <div className="border-t py-4 input-area mt-auto">
           <div className="flex items-center space-x-2">
             <input
               type="text"
