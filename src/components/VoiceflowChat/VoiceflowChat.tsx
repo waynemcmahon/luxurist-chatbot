@@ -149,10 +149,14 @@ export const VoiceflowChat = ({
   if (!showChat) {
     return (
       <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
-        <span className="text-2xl gilda-display text-gray-800 leading-tight">
+        <span className="text-2xl gilda-display text-gray-800 leading-tight" style={{
+          fontFamily: 'Gilda Display',
+        }}>
         Ready to create an unforgettable journey for your guests?
         </span>
-        <p className="text-gray-800 hanken-grotesk font-extralight">
+        <p className="text-gray-800 font-extralight" style={{
+          fontFamily: 'Hanken Grotesk',
+        }}>
         Simply click the button below, share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
         <button
