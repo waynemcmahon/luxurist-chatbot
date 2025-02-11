@@ -143,7 +143,7 @@ export const VoiceflowChat = ({
   };
 
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[400px]'
+    ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   if (!showChat) {

@@ -46,14 +46,12 @@ export default function Home() {
           </div>
 
           {/* Right Column - Chat Interface */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
             <VoiceflowChat
               projectId="67925daa7d35e219e09dfbad"
               apiKey={process.env.NEXT_PUBLIC_VOICEFLOW_API_KEY || ''}
               placement="inline"
               initialMessage="Hi there! I'm your luxury travel concierge. How can I help you plan your perfect getaway?"
             />
-          </div>
         </div>
       </div>
     </main>
