@@ -143,13 +143,13 @@ export const VoiceflowChat = ({
   };
 
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
+    ? 'w-full h-full min-h-[400px]'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   if (!showChat) {
     return (
       <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
-        <span className="text-2xl gilda-display text-gray-800 leading-tight" style={{
+        <span className="text-2xl gilda-display leading-tight font-extralight text-gray-700" style={{
           fontFamily: 'Gilda Display',
         }}>
         Ready to create an unforgettable journey for your guests?
@@ -157,24 +157,19 @@ export const VoiceflowChat = ({
         <p className="text-gray-800 font-extralight" style={{
           fontFamily: 'Hanken Grotesk',
         }}>
-        Simply click the button below, share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
+        Simply click the button below to get started.
         </p>
         <button
           onClick={handleStartChat}
           disabled={!privacyChecked}
           style={{
             fontFamily: 'Gilda Display',
-            fontSize: '1.25rem',
-            fontWeight: '400',
-            lineHeight: '1.111em',
-            letterSpacing: '.2em',
-            backgroundColor: 'hsla(23, 91.90%, 29.53%, 1.00)',
           }}
           className={`
-            w-full px-8 py-4 text-white text-lg gilda-display tracking-widest
+            w-full px-8 py-4 text-white text-lg font-gilda font-normal tracking-widest
             transition-all duration-300 ease-in-out transform
             ${privacyChecked 
-              ? 'bg-primary !hover:bg-[#000] hover:-translate-y-1 !transition-all !duration-300 !ease-in-out !transform'
+              ? 'w-full md:w-auto bg-[hsla(23,91.9%,29.53%,1)] hover:bg-[hsla(23,91.9%,25%,1)] transition-colors'
               : 'bg-gray-300 cursor-not-allowed'
             }
           `}
@@ -211,7 +206,8 @@ export const VoiceflowChat = ({
       {/* Chat Header */}
       <div className="border-b border-gray-100 py-4">
         <h2 className="text-lg font-bold gilda-display text-gray-900">Magic Quote</h2>
-        <p className="text-sm hanken-grotesk text-gray-500">Discover the perfect luxury travel experience for your guests</p>
+        <p className="text-sm hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
+        </p>
       </div>
 
       {/* Chat messages */}
