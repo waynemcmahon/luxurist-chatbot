@@ -10,7 +10,11 @@
 /* Chat container styles */
 #voiceflow-chat-container {
   transition: all 0.3s ease-in-out;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Hanken Grotesk', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
 }
 
 /* Message styles */
@@ -37,21 +41,26 @@
 /* Input area styles */
 #voiceflow-chat-container .input-area {
   border-top: 1px solid hsla(23, 91.90%, 29.53%, 0.1);
+  background: white;
 }
 
 #voiceflow-chat-container input {
   border: 1px solid hsla(23, 91.90%, 29.53%, 0.2);
   transition: all 0.2s ease;
+  width: 100%;
+  background: white;
 }
 
 #voiceflow-chat-container input:focus {
   border-color: var(--vf-primary-color);
   box-shadow: 0 0 0 2px hsla(23, 91.90%, 29.53%, 0.1);
+  outline: none;
 }
 
 #voiceflow-chat-container button {
   background: var(--vf-primary-color);
   transition: all 0.2s ease;
+  color: white;
 }
 
 #voiceflow-chat-container button:hover:not(:disabled) {
@@ -64,6 +73,10 @@
   border: 1px solid hsla(23, 91.90%, 29.53%, 0.2);
   background: white;
   transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }
 
 #voiceflow-chat-container .choice-button:hover {

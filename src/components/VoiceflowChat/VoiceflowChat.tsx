@@ -123,13 +123,6 @@ export const VoiceflowChat = ({
     await interact({ type: 'text', payload: text });
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage(inputValue);
-    }
-  };
-
   const handleButtonClick = async (button: Button) => {
     setMessages(prev => [...prev, { type: 'user', content: button.name }]);
     setButtons([]);
@@ -146,17 +139,14 @@ export const VoiceflowChat = ({
     startChat();
   }, []);
 
+  const containerClasses = placement === 'inline'
+    ? 'w-full h-full min-h-[600px] bg-white rounded-xl shadow-md'
+    : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
+
   return (
     <div
       id="voiceflow-chat-container"
-      className={`
-        transition-opacity duration-500 ease-in-out bg-white font-hanken
-        ${visible ? 'opacity-100' : 'opacity-0'}
-        ${placement === 'floating' 
-          ? 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl'
-          : 'relative w-full max-w-[600px] mx-auto h-[600px]'
-        }
-      `}
+      className={`transition-opacity duration-500 ease-in-out font-hanken ${visible ? 'opacity-100' : 'opacity-0'} ${containerClasses}`}
       aria-live="polite"
       role="region"
       aria-label="Chat interface"
@@ -212,13 +202,18 @@ export const VoiceflowChat = ({
         )}
 
         {/* Input area */}
-        <div className="border-t p-4 input-area">
+        <div className="border-t p-4 input-area mt-auto">
           <div className="flex items-center space-x-2">
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendMessage(inputValue);
+                }
+              }}
               placeholder="Share your travel vision..."
               className="flex-1 px-4 py-2 rounded-lg focus:outline-none"
               disabled={isLoading}
