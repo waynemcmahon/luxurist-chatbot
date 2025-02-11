@@ -6,9 +6,13 @@ module.exports = {
   output: {
     filename: "luxurist-chatbot.js",
     path: path.resolve(__dirname, "public/dist"),
-    library: "LuxuristChatbot",
-    libraryTarget: "umd",
-    globalObject: "this",
+    library: {
+      name: 'LuxuristChatbot',
+      type: 'umd',
+      export: 'default',
+      umdNamedDefine: true
+    },
+    globalObject: 'window',
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -51,7 +55,7 @@ module.exports = {
     minimize: true
   },
   externals: {
-    react: "React",
-    "react-dom": "ReactDOM"
+    react: 'React',
+    'react-dom': 'ReactDOM'
   }
 };
