@@ -39,7 +39,7 @@ export const VoiceflowChat = ({
   const userId = useRef(`user-${Math.random().toString(36).substring(7)}`);
 
   const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const interact = async (request: any) => {
@@ -168,12 +168,13 @@ export const VoiceflowChat = ({
             fontWeight: '400',
             lineHeight: '1.111em',
             letterSpacing: '.2em',
+            backgroundColor: 'hsla(23, 91.90%, 29.53%, 1.00)',
           }}
           className={`
             w-full px-8 py-4 text-white text-lg gilda-display tracking-widest
             transition-all duration-300 ease-in-out transform
             ${privacyChecked 
-              ? 'bg-primary hover:bg-primary/90 hover:-translate-y-1'
+              ? 'bg-primary !hover:bg-[#000] hover:-translate-y-1 !transition-all !duration-300 !ease-in-out !transform'
               : 'bg-gray-300 cursor-not-allowed'
             }
           `}
