@@ -38,8 +38,23 @@ export const VoiceflowChat = ({
   const chatEndRef = useRef<HTMLDivElement>(null);
   const userId = useRef(`user-${Math.random().toString(36).substring(7)}`);
 
+  const containerClasses = placement === 'inline'
+    ? 'w-full h-full min-h-[400px] max-h-[600px] bg-white rounded-xl shadow-lg p-8'
+    : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
+
+  // Add useEffect to scroll to bottom when messages change
+  useEffect(() => {
+    const messagesContainer = document.querySelector('.overflow-y-auto');
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  }, [messages, buttons]); // Scroll when messages or buttons change
+
   const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const messagesContainer = document.querySelector('.overflow-y-auto');
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
   };
 
   const interact = async (request: any) => {
@@ -94,7 +109,7 @@ export const VoiceflowChat = ({
 
       if (newMessages.length > 0) {
         setMessages(prev => [...prev, ...newMessages]);
-        setTimeout(scrollToBottom, 100);
+        //setTimeout(scrollToBottom, 100);
       }
       
       if (newButtons.length > 0) {
@@ -141,10 +156,6 @@ export const VoiceflowChat = ({
       await interact({ type: 'launch' });
     }, 500);
   };
-
-  const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
-    : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   if (!showChat) {
     return (
@@ -205,7 +216,7 @@ export const VoiceflowChat = ({
     >
       {/* Chat Header */}
       <div className="border-b border-gray-100 py-4">
-        <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2>
+        {/* <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2> */}
         <p className="hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
       </div>

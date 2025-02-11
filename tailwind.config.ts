@@ -23,6 +23,7 @@ const config: Config = {
     'w-full',
     'h-full',
     'min-h-[400px]',
+    'max-h-[600px]',
     'min-h-[500px]',
     'fixed',
     'bottom-5',
