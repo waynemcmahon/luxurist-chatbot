@@ -6,9 +6,12 @@ module.exports = {
   output: {
     filename: "luxurist-chatbot.js",
     path: path.resolve(__dirname, "dist"),
-    library: "LuxuristChatbot",
-    libraryTarget: "umd",
-    globalObject: "this",
+    library: {
+      name: 'LuxuristChatbot',
+      type: 'umd',
+      export: 'default'
+    },
+    globalObject: 'this',
     clean: true,
   },
   resolve: {
@@ -26,10 +29,13 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
+              ["@babel/preset-env", { targets: "defaults" }],
+              ["@babel/preset-react", { runtime: "automatic" }],
               "@babel/preset-typescript"
             ],
+            plugins: [
+              "@babel/plugin-transform-runtime"
+            ]
           },
         },
       },
@@ -40,7 +46,17 @@ module.exports = {
     ],
   },
   externals: {
-    react: "React",
-    "react-dom": "ReactDOM",
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom'
+    }
   },
 };

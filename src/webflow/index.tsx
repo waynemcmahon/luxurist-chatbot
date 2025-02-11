@@ -48,5 +48,6 @@ const initChat = (config: WebflowChatConfig) => {
   }
 };
 
-// Export for use in Webflow
-export { initChat }; 
+export default {
+  initChat
+}; 
