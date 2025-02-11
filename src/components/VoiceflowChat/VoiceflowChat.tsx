@@ -143,12 +143,12 @@ export const VoiceflowChat = ({
   };
 
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[400px]'
+    ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   if (!showChat) {
     return (
-      <div className={`${containerClasses} flex flex-col items-center justify-center space-y-8 welcome-screen`}>
+      <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
         <h2 className="text-2xl font-gilda text-gray-900 leading-tight">
         Ready to create an unforgettable journey for your guests?
         </h2>
