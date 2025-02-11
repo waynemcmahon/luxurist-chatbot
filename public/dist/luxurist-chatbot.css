@@ -37,7 +37,6 @@
 /* Chat container styles */
 #voiceflow-chat-container {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: 'Hanken Grotesk', sans-serif;
   display: flex;
   flex-direction: column;
   height: 100%;

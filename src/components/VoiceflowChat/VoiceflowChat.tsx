@@ -149,17 +149,17 @@ export const VoiceflowChat = ({
   if (!showChat) {
     return (
       <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
-        <h2 className="text-2xl font-gilda text-gray-900 leading-tight">
+        <h2 className="text-2xl gilda-display text-gray-800 leading-tight">
         Ready to create an unforgettable journey for your guests?
         </h2>
-        <p className="text-gray-600 font-extralight">
+        <p className="text-gray-800 hanken-grotesk font-extralight">
         Simply click the button below, share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
         <button
           onClick={handleStartChat}
           disabled={!privacyChecked}
           className={`
-            w-full px-8 py-4 text-white text-lg font-gilda tracking-widest
+            w-full px-8 py-4 text-white text-lg gilda-display tracking-widest
             transition-all duration-300 ease-in-out transform
             ${privacyChecked 
               ? 'bg-primary hover:bg-primary/90 hover:-translate-y-1'
@@ -177,14 +177,13 @@ export const VoiceflowChat = ({
             onChange={(e) => setPrivacyChecked(e.target.checked)}
             className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
           />
-          <label htmlFor="privacy-consent" className="text-xs font-extralight text-gray-600">
+          <label htmlFor="privacy-consent" className="text-xs hanken-grotesk font-extralight text-gray-600">
             I CONSENT TO RECEIVE COMMUNICATIONS AS PER THE{' '}
             <a href="#" className="underline hover:text-primary">
               PRIVACY POLICY
             </a>
           </label>
         </div>
-        
       </div>
     );
   }
@@ -192,15 +191,15 @@ export const VoiceflowChat = ({
   return (
     <div
       id="voiceflow-chat-container"
-      className={`transition-all duration-500 ease-in-out font-hanken ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
+      className={`transition-all duration-500 ease-in-out hanken-grotesk ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
       aria-live="polite"
       role="region"
       aria-label="Chat interface"
     >
       {/* Chat Header */}
       <div className="border-b border-gray-100 py-4">
-        <h2 className="text-lg font-bold font-gilda text-gray-900">Magic Quote</h2>
-        <p className="text-sm text-gray-500">Discover the perfect luxury travel experience for your guests</p>
+        <h2 className="text-lg font-bold gilda-display text-gray-900">Magic Quote</h2>
+        <p className="text-sm hanken-grotesk text-gray-500">Discover the perfect luxury travel experience for your guests</p>
       </div>
 
       {/* Chat messages */}
@@ -212,7 +211,7 @@ export const VoiceflowChat = ({
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} message ${message.type}`}
             >
               <div
-                className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                className={`max-w-[80%] rounded-lg px-4 py-2 hanken-grotesk ${
                   message.type === 'user'
                     ? 'bg-primary text-white'
                     : 'bg-secondary text-text'
@@ -224,7 +223,7 @@ export const VoiceflowChat = ({
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-secondary text-text rounded-lg px-4 py-2 typing">
+              <div className="bg-secondary text-text rounded-lg px-4 py-2 typing hanken-grotesk">
                 typing...
               </div>
             </div>
@@ -239,7 +238,7 @@ export const VoiceflowChat = ({
               <button
                 key={index}
                 onClick={() => handleButtonClick(button)}
-                className="w-full text-left px-4 py-2 rounded-lg choice-button font-gilda"
+                className="w-full text-left px-4 py-2 rounded-lg choice-button gilda-display"
               >
                 {button.name}
               </button>
@@ -261,13 +260,13 @@ export const VoiceflowChat = ({
                 }
               }}
               placeholder="Share your travel vision..."
-              className="flex-1 px-4 py-2 rounded-lg focus:outline-none"
+              className="flex-1 px-4 py-2 rounded-lg focus:outline-none hanken-grotesk"
               disabled={isLoading}
             />
             <button
               onClick={() => handleSendMessage(inputValue)}
               disabled={isLoading || !inputValue.trim()}
-              className="px-4 py-2 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed font-gilda"
+              className="px-4 py-2 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed gilda-display"
               aria-label="Send message"
             >
               Send
