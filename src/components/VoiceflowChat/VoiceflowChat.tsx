@@ -149,15 +149,22 @@ export const VoiceflowChat = ({
   if (!showChat) {
     return (
       <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
-        <h2 className="text-2xl gilda-display text-gray-800 leading-tight">
+        <span className="text-2xl gilda-display text-gray-800 leading-tight">
         Ready to create an unforgettable journey for your guests?
-        </h2>
+        </span>
         <p className="text-gray-800 hanken-grotesk font-extralight">
         Simply click the button below, share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
         <button
           onClick={handleStartChat}
           disabled={!privacyChecked}
+          style={{
+            fontFamily: 'Gilda Display',
+            fontSize: '1.25rem',
+            fontWeight: '400',
+            lineHeight: '1.111em',
+            letterSpacing: '.2em',
+          }}
           className={`
             w-full px-8 py-4 text-white text-lg gilda-display tracking-widest
             transition-all duration-300 ease-in-out transform
