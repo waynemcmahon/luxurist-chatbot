@@ -30,7 +30,7 @@ export const VoiceflowChat = ({
 }: VoiceflowChatProps) => {
   const [visible, setVisible] = useState(false);
   const [showChat, setShowChat] = useState(false);
-  const [privacyChecked, setPrivacyChecked] = useState(false);
+  const [privacyChecked, setPrivacyChecked] = useState(true);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [buttons, setButtons] = useState<Button[]>([]);
@@ -215,7 +215,7 @@ export const VoiceflowChat = ({
       aria-label="Chat interface"
     >
       {/* Chat Header */}
-      <div className="border-b border-gray-100 py-4">
+      <div className="border-b border-gray-100 pb-4">
         <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2>
         <p className="hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
@@ -266,7 +266,7 @@ export const VoiceflowChat = ({
         )}
 
         {/* Input area */}
-        <div className="border-t py-4 input-area mt-auto">
+        <div className="border-t pt-4 input-area mt-auto">
           <div className="flex items-center space-x-2">
             <input
               type="text"
