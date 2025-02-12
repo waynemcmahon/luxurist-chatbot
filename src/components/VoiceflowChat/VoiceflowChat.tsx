@@ -238,9 +238,9 @@ export const VoiceflowChat = ({
         </span>
         <span className="mt-4 gilda-display text-gray-800 block" style={{
           fontFamily: 'Hanken Grotesk',
-        }}> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
+        }}> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox.
         </span>
-        <span className="mt-8 text-gray-800 font-extralight block" style={{
+        <span className="mt-4 text-gray-800 font-extralight block" style={{
           fontFamily: 'Hanken Grotesk',
         }}>
         Simply click the button below to get started.
