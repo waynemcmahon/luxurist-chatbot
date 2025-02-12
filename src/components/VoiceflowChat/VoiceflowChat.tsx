@@ -57,7 +57,7 @@ export const VoiceflowChat = ({
   });
 
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
+    ? 'w-full h-full min-h-[400px]'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   // Add useEffect to scroll to bottom when messages change
@@ -182,7 +182,7 @@ export const VoiceflowChat = ({
       delay: 1500
     },
     {
-      question: "Great! I'll craft a luxurious South African safari experience for you and your wife in June 2024. You'll receive a detailed itinerary at john.smith@email.com shortly. Would you like to discuss any specific preferences for your safari adventure?",
+      question: "Great! I'll craft a luxurious South African safari experience for you and your wife in June 2024. You'll receive a detailed itinerary at john.smith@email.com shortly. Let us know if there's anything else we can do for you!",
       isEnd: true,
       delay: 2000
     }
@@ -229,17 +229,25 @@ export const VoiceflowChat = ({
 
   if (!showChat) {
     return (
-      <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
-        <span className="text-2xl gilda-display leading-tight font-extralight text-gray-700" style={{
+      <div className={`${containerClasses} flex flex-col space-y-8 welcome-screen`}>
+        <div>
+        <span className="text-2xl gilda-display leading-tight font-extralight text-gray-700 block" style={{
           fontFamily: 'Gilda Display',
         }}>
         Ready to create an unforgettable journey for your guests?
         </span>
-        <p className="text-gray-800 font-extralight" style={{
+        <span className="mt-4 gilda-display text-gray-800 block" style={{
+          fontFamily: 'Hanken Grotesk',
+        }}> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
+        </span>
+        <span className="mt-8 text-gray-800 font-extralight block" style={{
           fontFamily: 'Hanken Grotesk',
         }}>
         Simply click the button below to get started.
-        </p>
+        </span >
+        </div>
+        
+        
         <button
           onClick={handleStartChat}
           disabled={!privacyChecked}
@@ -279,7 +287,7 @@ export const VoiceflowChat = ({
   return (
     <div
       id="voiceflow-chat-container"
-      className={`transition-all duration-500 ease-in-out hanken-grotesk ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
+      className={`bg-white rounded-xl shadow-lg p-8 transition-all duration-500 ease-in-out hanken-grotesk ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
       aria-live="polite"
       role="region"
       aria-label="Chat interface"
@@ -288,8 +296,6 @@ export const VoiceflowChat = ({
       <div>
       <div className="border-b border-gray-100 pb-4">
         <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2>
-        <p className="hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
-        </p>
       </div>
       <div className="flex flex-col h-[calc(450px-8rem)]">
       <div className="flex-1 overflow-y-auto py-4 space-y-4">
