@@ -23,6 +23,13 @@ interface Button {
   };
 }
 
+interface SimulationStep {
+  question: string;
+  response?: string;
+  delay: number;
+  isEnd?: boolean;
+}
+
 export const VoiceflowChat = ({
   projectId,
   apiKey,
@@ -158,20 +165,20 @@ export const VoiceflowChat = ({
     await interact(button.request);
   };
 
-  const simulationSteps = [
+  const simulationSteps: SimulationStep[] = [
     {
       question: "Hi! I'd love to help you with your perfect adventure. What kind of trip would you like to plan?",
       response: "A safari tour in South Africa for me and my wife",
       delay: 1000
     },
     {
-      question: "A safari tour in South Africa sounds wonderful! When would you like to travel?", 
+      question: "A safari tour in South Africa sounds wonderful! When would you like to travel?",
       response: "June 2024",
       delay: 1500
     },
     {
       question: "Perfect! Could you share your email address so I can send you a detailed safari itinerary?",
-      response: "john.smith@email.com", 
+      response: "john.smith@email.com",
       delay: 1500
     },
     {
@@ -195,8 +202,8 @@ export const VoiceflowChat = ({
       await new Promise(resolve => setTimeout(resolve, step.delay));
       addMessage(step.question, 'assistant');
 
-      // If not the last step, add user's response
-      if (!step.isEnd) {
+      // If not the last step and has response, add user's response
+      if (!step.isEnd && step.response) {
         await new Promise(resolve => setTimeout(resolve, 1000));
         addMessage(step.response, 'user');
         setCurrentStep(i + 1);
