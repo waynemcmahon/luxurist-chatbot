@@ -215,15 +215,14 @@ export const VoiceflowChat = ({
       aria-label="Chat interface"
     >
       {/* Chat Header */}
+      <div>
       <div className="border-b border-gray-100 pb-4">
         <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2>
         <p className="hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
         </p>
       </div>
-
-      {/* Chat messages */}
       <div className="flex flex-col h-[calc(450px-8rem)]">
-        <div className="flex-1 overflow-y-auto py-4 space-y-4">
+      <div className="flex-1 overflow-y-auto py-4 space-y-4">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -249,6 +248,13 @@ export const VoiceflowChat = ({
           )}
           <div ref={chatEndRef} />
         </div>
+
+      </div>
+      </div>
+
+      {/* Chat messages */}
+     
+        
 
         {/* Button choices */}
         {buttons.length > 0 && (
@@ -293,7 +299,6 @@ export const VoiceflowChat = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
