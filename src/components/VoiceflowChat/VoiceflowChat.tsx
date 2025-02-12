@@ -39,7 +39,7 @@ export const VoiceflowChat = ({
   const userId = useRef(`user-${Math.random().toString(36).substring(7)}`);
 
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[400px] max-h-[600px] bg-white rounded-xl shadow-lg p-8'
+    ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   // Add useEffect to scroll to bottom when messages change
@@ -177,11 +177,11 @@ export const VoiceflowChat = ({
             fontFamily: 'Gilda Display',
           }}
           className={`
-            w-full px-8 py-4 text-white text-lg font-gilda font-normal tracking-widest
+            w-full px-8 py-4 text-white bg-[hsla(23,91.9%,29.53%,1)] hover:bg-[hsla(23,91.9%,25%,1)] text-lg font-gilda font-normal tracking-widest
             transition-all duration-300 ease-in-out transform
             ${privacyChecked 
-              ? 'w-full md:w-auto bg-[hsla(23,91.9%,29.53%,1)] hover:bg-[hsla(23,91.9%,25%,1)] transition-colors'
-              : 'bg-gray-300 cursor-not-allowed'
+              ? 'w-full md:w-auto transition-colors'
+              : 'cursor-not-allowed'
             }
           `}
         >
@@ -222,7 +222,7 @@ export const VoiceflowChat = ({
       </div>
 
       {/* Chat messages */}
-      <div className="flex flex-col h-[calc(100%-8rem)]">
+      <div className="flex flex-col h-[calc(450px-8rem)]">
         <div className="flex-1 overflow-y-auto py-4 space-y-4">
           {messages.map((message, index) => (
             <div
