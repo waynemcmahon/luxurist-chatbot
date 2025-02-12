@@ -7,6 +7,7 @@ interface VoiceflowChatProps {
   apiKey: string;
   placement?: 'inline' | 'floating';
   initialMessage?: string;
+  isSimulation?: boolean;
 }
 
 interface Message {
@@ -26,7 +27,8 @@ export const VoiceflowChat = ({
   projectId,
   apiKey,
   placement = 'floating',
-  initialMessage = 'Hey! Ready to plan your trip?'
+  initialMessage = 'Hey! Ready to plan your trip?',
+  isSimulation = false
 }: VoiceflowChatProps) => {
   const [visible, setVisible] = useState(false);
   const [showChat, setShowChat] = useState(false);
@@ -37,6 +39,15 @@ export const VoiceflowChat = ({
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const userId = useRef(`user-${Math.random().toString(36).substring(7)}`);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [simulationComplete, setSimulationComplete] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    email: '',
+    city: '',
+    people: '',
+    interests: '',
+    travelDate: ''
+  });
 
   const containerClasses = placement === 'inline'
     ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
@@ -147,13 +158,65 @@ export const VoiceflowChat = ({
     await interact(button.request);
   };
 
+  const simulationSteps = [
+    {
+      question: "Hi! I'd love to help you with your perfect adventure. What kind of trip would you like to plan?",
+      response: "A safari tour in South Africa for me and my wife",
+      delay: 1000
+    },
+    {
+      question: "A safari tour in South Africa sounds wonderful! When would you like to travel?", 
+      response: "June 2024",
+      delay: 1500
+    },
+    {
+      question: "Perfect! Could you share your email address so I can send you a detailed safari itinerary?",
+      response: "john.smith@email.com", 
+      delay: 1500
+    },
+    {
+      question: "Great! I'll craft a luxurious South African safari experience for you and your wife in June 2024. You'll receive a detailed itinerary at john.smith@email.com shortly. Would you like to discuss any specific preferences for your safari adventure?",
+      isEnd: true,
+      delay: 2000
+    }
+  ];
+
+  const runSimulation = useCallback(async () => {
+    if (!isSimulation || simulationComplete) return;
+
+    const addMessage = (content: string, type: 'assistant' | 'user') => {
+      setMessages(prev => [...prev, { type, content }]);
+    };
+
+    for (let i = 0; i < simulationSteps.length; i++) {
+      const step = simulationSteps[i];
+      
+      // Add assistant's question
+      await new Promise(resolve => setTimeout(resolve, step.delay));
+      addMessage(step.question, 'assistant');
+
+      // If not the last step, add user's response
+      if (!step.isEnd) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        addMessage(step.response, 'user');
+        setCurrentStep(i + 1);
+      }
+    }
+
+    setSimulationComplete(true);
+  }, [isSimulation, simulationComplete]);
+
   const handleStartChat = async () => {
     if (!privacyChecked) return;
     setShowChat(true);
     // Start conversation after animation
     setTimeout(async () => {
       setVisible(true);
-      await interact({ type: 'launch' });
+      if (isSimulation) {
+        runSimulation();
+      } else {
+        await interact({ type: 'launch' });
+      }
     }, 500);
   };
 
@@ -284,13 +347,13 @@ export const VoiceflowChat = ({
                   handleSendMessage(inputValue);
                 }
               }}
-              placeholder="Share your travel vision..."
+              placeholder={isSimulation ? "This is a demo conversation..." : "Share your travel vision..."}
               className="flex-1 px-4 py-2 rounded-lg focus:outline-none hanken-grotesk"
-              disabled={isLoading}
+              disabled={isSimulation || isLoading}
             />
             <button
               onClick={() => handleSendMessage(inputValue)}
-              disabled={isLoading || !inputValue.trim()}
+              disabled={isSimulation || isLoading || !inputValue.trim()}
               className="px-4 py-2 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed gilda-display"
               aria-label="Send message"
             >

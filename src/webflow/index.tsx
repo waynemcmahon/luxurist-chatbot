@@ -8,10 +8,11 @@ interface WebflowChatConfig {
   apiKey: string;
   placement?: 'inline' | 'floating';
   containerId?: string;
+  isSimulation?: boolean;
 }
 
 function initChat(config: WebflowChatConfig) {
-  const { projectId, apiKey, placement = 'floating', containerId } = config;
+  const { projectId, apiKey, placement = 'floating', containerId, isSimulation = false } = config;
 
   // If containerId is provided, render inline
   if (containerId) {
@@ -26,6 +27,7 @@ function initChat(config: WebflowChatConfig) {
         projectId={projectId}
         apiKey={apiKey}
         placement="inline"
+        isSimulation={isSimulation}
         initialMessage="Hi there! I'm your luxury travel concierge. How can I help you plan your perfect getaway?"
       />,
       container
@@ -41,6 +43,7 @@ function initChat(config: WebflowChatConfig) {
         projectId={projectId}
         apiKey={apiKey}
         placement="floating"
+        isSimulation={isSimulation}
         initialMessage="Hi there! I'm your luxury travel concierge. How can I help you plan your perfect getaway?"
       />,
       floatingContainer

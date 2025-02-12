@@ -51,6 +51,7 @@ export default function Home() {
               apiKey={process.env.NEXT_PUBLIC_VOICEFLOW_API_KEY || ''}
               placement="inline"
               initialMessage="Hi there! I'm your luxury travel concierge. How can I help you plan your perfect getaway?"
+              isSimulation={true}
             />
         </div>
       </div>
