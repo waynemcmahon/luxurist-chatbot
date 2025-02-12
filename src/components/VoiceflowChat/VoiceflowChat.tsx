@@ -198,14 +198,19 @@ export const VoiceflowChat = ({
     for (let i = 0; i < simulationSteps.length; i++) {
       const step = simulationSteps[i];
       
+      // Show typing indicator before assistant's message
+      setIsLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Show typing for 1.5s
+      setIsLoading(false);
+      
       // Add assistant's question
-      await new Promise(resolve => setTimeout(resolve, step.delay));
       addMessage(step.question, 'assistant');
+      await new Promise(resolve => setTimeout(resolve, step.delay));
 
       // If not the last step and has response, add user's response
       if (!step.isEnd && step.response) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
         addMessage(step.response, 'user');
+        await new Promise(resolve => setTimeout(resolve, 1000));
         setCurrentStep(i + 1);
       }
     }
