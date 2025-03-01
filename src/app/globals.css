@@ -2,13 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --vf-primary-color: #007bff;
-  --vf-secondary-color: #f1f1f1;
-  --vf-text-color: #333;
-  --vf-background-color: white;
+@layer base {
+  /* Import fonts using Tailwind's layer directive for better performance */
+  @import url('https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&display=swap');
+  
+  body {
+    @apply font-hanken bg-white text-gray-900;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-gilda;
+  }
 }
 
-body {
-  @apply bg-gray-50;
+/* Custom styles for form elements */
+input, textarea {
+  @apply bg-white border border-gray-200 rounded-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400;
+}
+
+button {
+  @apply transition-all duration-200;
 } 

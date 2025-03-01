@@ -37,9 +37,7 @@ export const VoiceflowChat = ({
   initialMessage = 'Hey! Ready to plan your trip?',
   isSimulation = false
 }: VoiceflowChatProps) => {
-  const [visible, setVisible] = useState(false);
-  const [showChat, setShowChat] = useState(false);
-  const [privacyChecked, setPrivacyChecked] = useState(true);
+  const [visible, setVisible] = useState(true);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [buttons, setButtons] = useState<Button[]>([]);
@@ -57,7 +55,7 @@ export const VoiceflowChat = ({
   });
 
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[400px] bg-white rounded-xl shadow-lg p-8'
+    ? 'w-full h-full min-h-[400px] bg-white shadow-lg p-8'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   // Add useEffect to scroll to bottom when messages change
@@ -67,6 +65,19 @@ export const VoiceflowChat = ({
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
   }, [messages, buttons]); // Scroll when messages or buttons change
+
+  // Start conversation when component mounts
+  useEffect(() => {
+    const initConversation = async () => {
+      if (isSimulation) {
+        runSimulation();
+      } else {
+        await interact({ type: 'launch' });
+      }
+    };
+    
+    initConversation();
+  }, [isSimulation]);
 
   const scrollToBottom = () => {
     const messagesContainer = document.querySelector('.overflow-y-auto');
@@ -182,7 +193,7 @@ export const VoiceflowChat = ({
       delay: 1500
     },
     {
-      question: "Great! I'll craft a luxurious South African safari experience for you and your wife in June 2024. You'll receive a detailed itinerary at john.smith@email.com shortly. Would you like to discuss any specific preferences for your safari adventure?",
+      question: "Great! I'll craft a luxurious South African safari experience for you and your wife in June 2024. You'll receive a detailed itinerary at john.smith@email.com shortly. Let us know if there's anything else we can do for you!",
       isEnd: true,
       delay: 2000
     }
@@ -213,69 +224,6 @@ export const VoiceflowChat = ({
     setSimulationComplete(true);
   }, [isSimulation, simulationComplete]);
 
-  const handleStartChat = async () => {
-    if (!privacyChecked) return;
-    setShowChat(true);
-    // Start conversation after animation
-    setTimeout(async () => {
-      setVisible(true);
-      if (isSimulation) {
-        runSimulation();
-      } else {
-        await interact({ type: 'launch' });
-      }
-    }, 500);
-  };
-
-  if (!showChat) {
-    return (
-      <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
-        <span className="text-2xl gilda-display leading-tight font-extralight text-gray-700" style={{
-          fontFamily: 'Gilda Display',
-        }}>
-        Ready to create an unforgettable journey for your guests?
-        </span>
-        <p className="text-gray-800 font-extralight" style={{
-          fontFamily: 'Hanken Grotesk',
-        }}>
-        Simply click the button below to get started.
-        </p>
-        <button
-          onClick={handleStartChat}
-          disabled={!privacyChecked}
-          style={{
-            fontFamily: 'Gilda Display',
-          }}
-          className={`
-            w-full px-8 py-4 text-white bg-[hsla(23,91.9%,29.53%,1)] hover:bg-[hsla(23,91.9%,25%,1)] text-lg font-gilda font-normal tracking-widest
-            transition-all duration-300 ease-in-out transform
-            ${privacyChecked 
-              ? 'w-full md:w-auto transition-colors'
-              : 'cursor-not-allowed'
-            }
-          `}
-        >
-          LET'S START
-        </button>
-        <div className="flex items-start space-x-2 mt-4">
-          <input
-            type="checkbox"
-            id="privacy-consent"
-            checked={privacyChecked}
-            onChange={(e) => setPrivacyChecked(e.target.checked)}
-            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
-          />
-          <label htmlFor="privacy-consent" className="text-xs hanken-grotesk font-extralight text-gray-600">
-            I CONSENT TO RECEIVE COMMUNICATIONS AS PER THE{' '}
-            <a href="#" className="underline hover:text-primary">
-              PRIVACY POLICY
-            </a>
-          </label>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div
       id="voiceflow-chat-container"
@@ -284,13 +232,9 @@ export const VoiceflowChat = ({
       role="region"
       aria-label="Chat interface"
     >
-      {/* Chat Header */}
-      <div>
-      <div className="border-b border-gray-100 pb-4">
-        <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2>
-        <p className="hanken-grotesk text-gray-500"> Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
-        </p>
-      </div>
+      {/* <div className="border-b border-gray-100 pb-4">
+        <p className="hanken-grotesk text-gray-500 font-light">Simply share your travel vision with us below.</p>
+      </div> */}
       <div className="flex flex-col h-[calc(450px-8rem)]">
       <div className="flex-1 overflow-y-auto py-4 space-y-4">
           {messages.map((message, index) => (
@@ -299,7 +243,7 @@ export const VoiceflowChat = ({
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} message ${message.type}`}
             >
               <div
-                className={`max-w-[80%] rounded-lg px-4 py-2 hanken-grotesk ${
+                className={`rounded-lg px-4 py-2 hanken-grotesk font-light ${
                   message.type === 'user'
                     ? 'bg-primary text-white'
                     : 'bg-secondary text-text'
@@ -320,55 +264,50 @@ export const VoiceflowChat = ({
         </div>
 
       </div>
-      </div>
 
-      {/* Chat messages */}
-     
-        
-
-        {/* Button choices */}
-        {buttons.length > 0 && (
-          <div className="py-4 space-y-2">
-            {buttons.map((button, index) => (
-              <button
-                key={index}
-                onClick={() => handleButtonClick(button)}
-                className="w-full text-left px-4 py-2 rounded-lg choice-button gilda-display"
-              >
-                {button.name}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Input area */}
-        <div className="border-t pt-4 input-area mt-auto">
-          <div className="flex items-center space-x-2">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage(inputValue);
-                }
-              }}
-              placeholder={isSimulation ? "This is a demo conversation..." : "Share your travel vision..."}
-              className="flex-1 px-4 py-2 rounded-lg focus:outline-none hanken-grotesk"
-              disabled={isSimulation || isLoading}
-            />
+      {/* Button choices */}
+      {buttons.length > 0 && (
+        <div className="py-4 space-y-2">
+          {buttons.map((button, index) => (
             <button
-              onClick={() => handleSendMessage(inputValue)}
-              disabled={isSimulation || isLoading || !inputValue.trim()}
-              className="px-4 py-2 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed gilda-display"
-              aria-label="Send message"
+              key={index}
+              onClick={() => handleButtonClick(button)}
+              className="w-full text-left px-4 py-2 rounded-lg choice-button gilda-display"
             >
-              Send
+              {button.name}
             </button>
-          </div>
+          ))}
+        </div>
+      )}
+
+      {/* Input area */}
+      <div className="border-t pt-4 input-area mt-auto">
+        <div className="flex items-center space-x-2">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage(inputValue);
+              }
+            }}
+            placeholder={isSimulation ? "This is a demo conversation..." : "Share your travel vision..."}
+            className="flex-1 px-4 py-2 focus:outline-none hanken-grotesk font-light"
+            disabled={isSimulation || isLoading}
+          />
+          <button
+            onClick={() => handleSendMessage(inputValue)}
+            disabled={isSimulation || isLoading || !inputValue.trim()}
+            className="px-4 py-2 bg-primary text-white disabled:opacity-50 disabled:cursor-not-allowed gilda-display"
+            aria-label="Send message"
+          >
+            Send
+          </button>
         </div>
       </div>
+    </div>
   );
 };
 
