@@ -2,12 +2,15 @@
 
 import React from "react";
 import { TypeFormChat } from "@/components/TypeFormChat/TypeFormChat";
+import { Header } from "@/components/Layout/Header";
+import { Footer } from "@/components/Layout/Footer";
 import Image from "next/image";
-import { VoiceflowChat } from "@/components/VoiceflowChat/VoiceflowChat";
+import { VoiceflowChatProduction } from "@/components/VoiceflowChat/VoiceflowChat";
 
 export default function HomePage() {
   return (
     <>
+      <Header />
       {/* Hero Section - Using the background technique from example */}
       <div className="relative bg-[#FDF8F3]">
         <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8">
@@ -25,10 +28,11 @@ export default function HomePage() {
               </p>
               
               <div className="mt-8">
-                <VoiceflowChat
+                <VoiceflowChatProduction
                   placement="inline"
                   projectId="67925daa7d35e219e09dfbad"
                   apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
+                  showHeaderAndTitle={false}
                 />
               </div>
             </div>
@@ -68,6 +72,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
