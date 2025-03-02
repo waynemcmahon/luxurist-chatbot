@@ -9,11 +9,10 @@ module.exports = {
     path: path.resolve(__dirname, "public/dist"),
     library: {
       name: 'LuxuristChatbot',
-      type: 'umd',
-      export: 'default',
-      umdNamedDefine: true
+      type: 'window',
+      export: 'default'
     },
-    globalObject: 'window',
+    globalObject: 'window'
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -26,25 +25,18 @@ module.exports = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              ["@babel/preset-env", { 
-                targets: "> 0.25%, not dead",
-                modules: "umd"
-              }],
-              ["@babel/preset-react", { 
-                runtime: "automatic",
-                importSource: "react"
-              }],
-              "@babel/preset-typescript"
-            ],
-            plugins: [
-              "@babel/plugin-transform-runtime"
-            ]
-          },
-        },
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: [
+                "@babel/preset-env",
+                "@babel/preset-react",
+                "@babel/preset-typescript"
+              ]
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,

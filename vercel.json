@@ -1,10 +1,13 @@
 {
-  "version": 2,
-  "builds": [
+  "framework": "nextjs",
+  "buildCommand": "npm run build && npm run build:webflow",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "public": true,
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/next"
+      "source": "/dist/:path*",
+      "destination": "/dist/:path*"
     }
-  ],
-  "public": true
+  ]
 } 
