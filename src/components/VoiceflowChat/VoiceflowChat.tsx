@@ -209,14 +209,19 @@ export const VoiceflowChat = ({
     for (let i = 0; i < simulationSteps.length; i++) {
       const step = simulationSteps[i];
       
+      // Show typing indicator before assistant's message
+      setIsLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Show typing for 1.5s
+      setIsLoading(false);
+      
       // Add assistant's question
-      await new Promise(resolve => setTimeout(resolve, step.delay));
       addMessage(step.question, 'assistant');
+      await new Promise(resolve => setTimeout(resolve, step.delay));
 
       // If not the last step and has response, add user's response
       if (!step.isEnd && step.response) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
         addMessage(step.response, 'user');
+        await new Promise(resolve => setTimeout(resolve, 1000));
         setCurrentStep(i + 1);
       }
     }
@@ -224,10 +229,73 @@ export const VoiceflowChat = ({
     setSimulationComplete(true);
   }, [isSimulation, simulationComplete]);
 
+  const handleStartChat = async () => {
+    if (!privacyChecked) return;
+    setShowChat(true);
+    // Start conversation after animation
+    setTimeout(async () => {
+      setVisible(true);
+      if (isSimulation) {
+        runSimulation();
+      } else {
+        await interact({ type: 'launch' });
+      }
+    }, 500);
+  };
+
+  if (!showChat) {
+    return (
+      <div className={`${containerClasses} flex flex-col justify-center space-y-8 welcome-screen`}>
+        <span className="text-2xl gilda-display leading-tight font-extralight text-gray-700" style={{
+          fontFamily: 'Gilda Display',
+        }}>
+        Ready to create an unforgettable journey for your guests?
+        </span>
+        <p className="text-gray-800 font-extralight" style={{
+          fontFamily: 'Hanken Grotesk',
+        }}>
+        Simply click the button below to get started.
+        </p>
+        <button
+          onClick={handleStartChat}
+          disabled={!privacyChecked}
+          style={{
+            fontFamily: 'Gilda Display',
+          }}
+          className={`
+            w-full px-8 py-4 text-white bg-[hsla(23,91.9%,29.53%,1)] hover:bg-[hsla(23,91.9%,25%,1)] text-lg font-gilda font-normal tracking-widest
+            transition-all duration-300 ease-in-out transform
+            ${privacyChecked 
+              ? 'w-full md:w-auto transition-colors'
+              : 'cursor-not-allowed'
+            }
+          `}
+        >
+          LET'S START
+        </button>
+        <div className="flex items-start space-x-2 mt-4">
+          <input
+            type="checkbox"
+            id="privacy-consent"
+            checked={privacyChecked}
+            onChange={(e) => setPrivacyChecked(e.target.checked)}
+            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+          />
+          <label htmlFor="privacy-consent" className="text-xs hanken-grotesk font-extralight text-gray-600">
+            I CONSENT TO RECEIVE COMMUNICATIONS AS PER THE{' '}
+            <a href="#" className="underline hover:text-primary">
+              PRIVACY POLICY
+            </a>
+          </label>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       id="voiceflow-chat-container"
-      className={`transition-all duration-500 ease-in-out hanken-grotesk ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
+      className={`bg-white rounded-xl shadow-lg p-8 transition-all duration-500 ease-in-out hanken-grotesk ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
       aria-live="polite"
       role="region"
       aria-label="Chat interface"
