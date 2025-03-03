@@ -11,6 +11,7 @@ interface FormData {
   vision: string;
   email: string;
   consent: boolean;
+  country: string;
   timestamp?: string;
 }
 
@@ -20,6 +21,28 @@ interface ValidationState {
     message: string;
   };
 }
+
+// Countries list with special handling for Canada
+const COUNTRIES = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+  "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
+  "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada (English)", "Canada (French)", 
+  "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", 
+  "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador",
+  "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana",
+  "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia",
+  "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North",
+  "Korea, South", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania",
+  "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius",
+  "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal",
+  "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea",
+  "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia",
+  "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles",
+  "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka",
+  "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga",
+  "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom",
+  "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+];
 
 // Animation variants
 const fadeInUp = {
@@ -170,7 +193,8 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
   const [formData, setFormData] = useState<FormData>({
     vision: '',
     email: '',
-    consent: true
+    consent: true,
+    country: ''
   });
   const [validation, setValidation] = useState<ValidationState>({
     email: {
@@ -194,10 +218,9 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
         vision: formData.vision,
         email: formData.email,
         consent: formData.consent,
+        country: formData.country,
         timestamp: new Date().toISOString()
       };
-
-      console.log('formDataObj:', formDataObj);
 
       await new Promise((resolve, reject) => {
         window.$.ajax({
@@ -380,6 +403,27 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
                   </motion.p>
                 )}
               </div>
+              <div className="space-y-1">
+                <label htmlFor="country" className="block text-sm hanken-grotesk font-extralight text-gray-600 mb-1">
+                  Which country are you located in?
+                </label>
+                <motion.select
+                  variants={staggerItem}
+                  id="country"
+                  name="country"
+                  value={formData.country}
+                  onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                  required
+                  className="w-full p-4 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] hanken-grotesk bg-white"
+                >
+                  <option value="">Select your country</option>
+                  {COUNTRIES.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </motion.select>
+              </div>
               <motion.div
                 variants={staggerItem}
                 className="flex items-start space-x-2"
@@ -413,9 +457,9 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
             <motion.button
               variants={staggerItem}
               type="submit"
-              disabled={!validation.email.isValid || !formData.email.trim() || !formData.consent || isSubmitting}
+              disabled={!validation.email.isValid || !formData.email.trim() || !formData.country || !formData.consent || isSubmitting}
               className={`${buttonClasses} ${
-                validation.email.isValid && formData.email.trim() && formData.consent && !isSubmitting ? enabledButtonClasses : ''
+                validation.email.isValid && formData.email.trim() && formData.country && formData.consent && !isSubmitting ? enabledButtonClasses : ''
               }`}
             >
               {isSubmitting ? 'SUBMITTING...' : 'SURPRISE ME!'}

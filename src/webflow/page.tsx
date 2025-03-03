@@ -2,8 +2,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { VoiceflowChat } from '../../components/VoiceflowChat/VoiceflowChat';
-import { TypeFormChat } from '../../components/TypeFormChat/TypeFormChat';
+import { VoiceflowChat } from '../components/VoiceflowChat/VoiceflowChat';
+import { TypeFormChat } from '../components/TypeFormChat/TypeFormChat';
 import '../../components/VoiceflowChat/VoiceflowChat.css';
 import '../../app/globals.css'; // Import global styles for TypeForm
 
