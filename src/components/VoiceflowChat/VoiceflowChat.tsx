@@ -60,21 +60,15 @@ export const VoiceflowChat = ({
 
   // Dynamic container classes based on placement
   const containerClasses = placement === 'inline'
-    ? 'w-full h-full min-h-[500px] bg-white rounded-xl shadow-lg'
-    : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
+    ? 'w-full h-full bg-white rounded-xl shadow-lg flex flex-col'
+    : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white flex flex-col';
 
   // Dynamic content container classes based on placement
-  const contentContainerClasses = placement === 'inline'
-    ? 'flex flex-col h-full'
-    : 'flex flex-col h-full';
+  const contentContainerClasses = 'flex flex-col h-full';
 
   // Dynamic height for message container based on placement and header visibility
   const getMessageContainerHeight = () => {
-    if (placement === 'inline') {
-      return showHeaderAndTitle ? 'h-[calc(100%-180px)]' : 'h-[calc(100%-100px)]';
-    } else {
-      return showHeaderAndTitle ? 'h-[calc(100%-180px)]' : 'h-[calc(100%-100px)]';
-    }
+    return 'flex-1 overflow-y-auto min-h-0';
   };
 
   // Add useEffect to scroll to bottom when messages change
@@ -282,7 +276,7 @@ export const VoiceflowChat = ({
       <div className={contentContainerClasses}>
         {/* Chat Header */}
         {showHeaderAndTitle && (
-          <div className="border-b border-gray-100 p-6">
+          <div className="border-b border-gray-100 p-6 flex-shrink-0">
             <h2 className="text-2xl font-bold gilda-display text-gray-900">Magic Quote</h2>
             <p className="hanken-grotesk text-gray-500 mt-2"> 
               Share some details about a trip you are interested in creating, and our concierge experts will craft a bespoke trip delivered to your inbox
@@ -291,36 +285,38 @@ export const VoiceflowChat = ({
         )}
         
         {/* Messages Container */}
-        <div className={`flex-1 overflow-y-auto p-6 space-y-4 ${getMessageContainerHeight()}`}>
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} message ${message.type}`}
-            >
+        <div className={`flex-1 min-h-0 overflow-y-auto`}>
+          <div className="p-6 space-y-4">
+            {messages.map((message) => (
               <div
-                className={`max-w-[80%] rounded-lg px-4 py-2 hanken-grotesk font-light ${
-                  message.type === 'user'
-                    ? 'bg-[hsla(23,91.9%,29.53%,1)] text-white'
-                    : 'bg-gray-100 text-gray-800'
-                }`}
+                key={message.id}
+                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} message ${message.type}`}
               >
-                {message.content}
+                <div
+                  className={`max-w-[80%] rounded-lg px-4 py-2 hanken-grotesk font-light ${
+                    message.type === 'user'
+                      ? 'bg-[hsla(23,91.9%,29.53%,1)] text-white'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}
+                >
+                  {message.content}
+                </div>
               </div>
-            </div>
-          ))}
-          {isLoading && (
-            <div className="flex justify-start">
-              <div className="bg-gray-100 text-gray-800 rounded-lg px-4 py-2 typing hanken-grotesk">
-                typing...
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-gray-100 text-gray-800 rounded-lg px-4 py-2 typing hanken-grotesk">
+                  typing...
+                </div>
               </div>
-            </div>
-          )}
-          <div ref={chatEndRef} />
+            )}
+            <div ref={chatEndRef} />
+          </div>
         </div>
 
         {/* Button choices */}
         {buttons.length > 0 && (
-          <div className="px-6 py-3 space-y-2 border-t border-gray-100">
+          <div className="px-6 py-3 space-y-2 border-t border-gray-100 flex-shrink-0">
             {buttons.map((button, index) => (
               <button
                 key={index}
@@ -334,7 +330,7 @@ export const VoiceflowChat = ({
         )}
 
         {/* Input area */}
-        <div className="border-t border-gray-100 p-4 mt-auto">
+        <div className="border-t border-gray-100 p-4 flex-shrink-0">
           <div className="flex items-center space-x-2">
             <input
               type="text"

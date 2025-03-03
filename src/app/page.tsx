@@ -27,28 +27,30 @@ export default function HomePage() {
                 Ready to create an unforgettable journey for your guests?
               </p>
               
-              <div className="mt-8">
-                <VoiceflowChatProduction
-                  placement="inline"
-                  projectId="67925daa7d35e219e09dfbad"
-                  apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
-                  showHeaderAndTitle={false}
-                />
+              <div className="mt-8 h-[600px] flex">
+                <div className="flex-1 flex flex-col">
+                  <VoiceflowChatProduction
+                    placement="inline"
+                    projectId="67925daa7d35e219e09dfbad"
+                    apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
+                    showHeaderAndTitle={false}
+                  />
+                </div>
               </div>
             </div>
           </div>
           
           {/* Right Column - Image */}
-          <div className="relative lg:col-span-6 lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
+          <div className="relative lg:col-span-6 xl:absolute xl:inset-0 xl:left-1/2 rounded-xl">
             <Image
               src="/images/rabbit_hat.jpeg"
               alt="Luxury Travel Experience"
-              className="aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+              className="aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full p-12"
               fill
               style={{ objectFit: "cover" }}
               priority
             />
-            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end p-12">
+            <div className="absolute inset-0 bg-opacity-30 flex items-end p-16">
               <div className="text-white">
                 <h2 className="font-gilda text-3xl mb-4">Let the magic happen...</h2>
               </div>
