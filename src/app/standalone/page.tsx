@@ -7,7 +7,6 @@ import Image from 'next/image';
 
 export default function StandalonePage() {
   return (
-    <Layout>
       <div className="bg-[#FDF8F3] py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -68,6 +67,5 @@ export default function StandalonePage() {
           </div>
         </div>
       </div>
-    </Layout>
   );
 } 

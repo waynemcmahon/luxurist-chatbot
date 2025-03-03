@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { TypeFormChat } from "@/components/TypeFormChat/TypeFormChat";
+//import { TypeFormChat } from "@/components/TypeFormChat/TypeFormChat";
 
 export default function EmbedPage() {
   return (
@@ -15,11 +15,11 @@ export default function EmbedPage() {
       
       {/* Chat Container */}
       <div className="h-[calc(100vh-theme(space.16))] lg:h-screen">
-        <TypeFormChat 
+        {/* <TypeFormChat 
           placement="inline"
           formsparkId={process.env.NEXT_PUBLIC_FORMSPARK_ID || ''}
           googleSheetsUrl={process.env.NEXT_PUBLIC_GOOGLE_SHEETS_URL}
-        />
+        /> */}
       </div>
     </main>
   );

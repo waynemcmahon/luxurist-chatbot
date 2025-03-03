@@ -1,41 +1,11 @@
+'use client'
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { VoiceflowChat } from '../components/VoiceflowChat/VoiceflowChat';
-import { TypeFormChat } from '../components/TypeFormChat/TypeFormChat';
-import '../components/VoiceflowChat/VoiceflowChat.css';
-import '../app/globals.css'; // Import global styles for TypeForm
-
-// Example usage in Webflow:
-/*
-<!-- For Voiceflow Chat (Inline) -->
-<div id="chat-container"></div>
-<script>
-  window.onload = function() {
-    LuxuristChatbot.initChat({
-      projectId: "YOUR_PROJECT_ID",
-      apiKey: "YOUR_API_KEY",
-      mode: "chat",
-      containerId: "chat-container",
-      isSimulation: true, // Optional: set to true for simulation mode
-      initialMessage: "Hi there! I'm your luxury travel concierge. How can I help you plan your perfect getaway?"
-    });
-  }
-</script>
-
-<!-- For TypeForm (Inline) -->
-<div id="typeform-container"></div>
-<script>
-  window.onload = function() {
-    LuxuristChatbot.initChat({
-      mode: "typeform",
-      containerId: "typeform-container",
-      formspark: {
-        formId: "YOUR_FORMSPARK_FORM_ID"
-      }
-    });
-  }
-</script>
-*/
+import { VoiceflowChat } from '../../components/VoiceflowChat/VoiceflowChat';
+import { TypeFormChat } from '../../components/TypeFormChat/TypeFormChat';
+import '../../components/VoiceflowChat/VoiceflowChat.css';
+import '../../app/globals.css'; // Import global styles for TypeForm
 
 interface WebflowChatConfig {
   projectId?: string;
