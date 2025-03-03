@@ -15,8 +15,8 @@ export default function HomePage() {
       <div className="relative bg-[#FDF8F3]">
         <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8">
           {/* Left Column - Form Section */}
-          <div className="px-6 py-12 lg:col-span-6 lg:px-8 lg:py-24 xl:col-span-5">
-            <div className="mx-auto max-w-lg lg:mx-0">
+          <div className="px-6 py-12 lg:col-span-6 lg:px-8 lg:py-24 xl:col-span-8">
+            <div className="mx-auto max-w-full lg:mx-0">
               <div className="mb-2 uppercase tracking-widest text-[hsla(23,91.9%,29.53%,1)] text-sm font-light">
                 Create Your Journey
               </div>
@@ -41,11 +41,11 @@ export default function HomePage() {
           </div>
           
           {/* Right Column - Image */}
-          <div className="relative lg:col-span-6 xl:absolute xl:inset-0 xl:left-1/2 rounded-xl">
+          <div className="relative lg:col-span-6 xl:absolute xl:inset-0 xl:left-2/3 rounded-xl m-12">
             <Image
               src="/images/rabbit_hat.jpeg"
               alt="Luxury Travel Experience"
-              className="aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full p-12"
+              className="aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full rounded-xl"
               fill
               style={{ objectFit: "cover" }}
               priority
