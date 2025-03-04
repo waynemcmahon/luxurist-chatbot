@@ -22,15 +22,16 @@ export default function EmbedPage() {
                     apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
                     showHeaderAndTitle={false}
                   />
-                </div>
-              </div>
-        </div>
-  
-        {/* <VoiceflowEmbed
+{/* 
+        <VoiceflowEmbed
         projectId="67925daa7d35e219e09dfbad"
         apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
         /> */}
     
+                </div>
+              </div>
+        </div>
+  
     </MagicContainer>
   );
 }

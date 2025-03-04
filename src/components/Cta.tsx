@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 
 export const Cta = () => {
+  const baseUrl = "https://www.theluxurist.com";
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => {
     if (e.type === 'keydown' && (e as React.KeyboardEvent).key !== 'Enter') {
       return;
@@ -24,12 +25,12 @@ export const Cta = () => {
             travel
           </p>
           <a
-            href="#engage"
+            href={`${baseUrl}/engage`}
             onClick={handleClick}
             onKeyDown={handleClick}
             tabIndex={0}
             aria-label="Engage with our luxury travel services"
-            className="inline-block bg-[hsla(23,91.9%,29.53%,1)] px-8 text-white py-4 uppercase tracking-widest text-sm font-light hover:bg-[hsla(23,91.9%,35%,1)] transition-all duration-300"
+            className="font-gilda inline-block bg-[hsla(23,91.9%,29.53%,1)] px-8 text-white py-4 uppercase tracking-widest text-sm font-light hover:bg-[hsla(23,91.9%,35%,1)] transition-all duration-300"
           >
             Engage With Us
           </a>

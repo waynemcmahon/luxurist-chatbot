@@ -15,19 +15,21 @@ export const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const baseUrl = "https://www.theluxurist.com";
+
   return (
     <header className={`w-full py-6 ${transparent ? 'absolute top-0 left-0 z-10' : 'bg-white shadow-sm'}`}>
       <div className="container mx-auto px-4 flex justify-between items-center relative">
         {/* Left section - Desktop Navigation */}
         <div className="flex-1">
           <nav className="hidden md:flex space-x-8">
-            <Link href="/" className="font-gilda text-gray-800 hover:text-[hsla(23,91.9%,29.53%,1)] uppercase tracking-[2.2px] text-[11px] transition-colors">
+            <Link href={`${baseUrl}/travel-advisors`} className="font-gilda text-gray-800 hover:text-[hsla(23,91.9%,29.53%,1)] uppercase tracking-[2.2px] text-[11px] transition-colors">
               Travel Advisors
             </Link>
-            <Link href="/about-us" className="font-gilda text-gray-800 hover:text-[hsla(23,91.9%,29.53%,1)] uppercase tracking-[2.2px] text-[11px] transition-colors">
+            <Link href={`${baseUrl}/hotels`} className="font-gilda text-gray-800 hover:text-[hsla(23,91.9%,29.53%,1)] uppercase tracking-[2.2px] text-[11px] transition-colors">
               Hotels
             </Link>
-            <Link href="/about-us" className="font-gilda text-gray-800 hover:text-[hsla(23,91.9%,29.53%,1)] uppercase tracking-[2.2px] text-[11px] transition-colors">
+            <Link href={`${baseUrl}/about-us`} className="font-gilda text-gray-800 hover:text-[hsla(23,91.9%,29.53%,1)] uppercase tracking-[2.2px] text-[11px] transition-colors">
               About Us
             </Link>
           </nav>
@@ -35,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
 
         {/* Center - Logo */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
-          <Link href="/" className="flex items-center z-20">
+          <Link href={`${baseUrl}/`} className="flex items-center z-20">
             <img 
               src="https://cdn.prod.website-files.com/670230337fd9e66559f110bd/670230337fd9e66559f11293_Logo%20The%20Luxurist%20-Black.svg" 
               alt="The Luxurist Logo" 
@@ -107,21 +109,21 @@ export const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 HOME
               </Link>
               <Link 
-                href="/travel-agents" 
+                href={`${baseUrl}/travel-advisors`} 
                 className="font-gilda text-white hover:text-[hsla(23,91.9%,70%,1)] uppercase tracking-widest text-2xl transition-colors"
                 onClick={toggleMobileMenu}
               >
                 TRAVEL AGENTS
               </Link>
               <Link 
-                href="/hotels" 
+                href={`${baseUrl}/hotels`} 
                 className="font-gilda text-white hover:text-[hsla(23,91.9%,70%,1)] uppercase tracking-widest text-2xl transition-colors"
                 onClick={toggleMobileMenu}
               >
                 HOTELS
               </Link>
               <Link 
-                href="/about-us" 
+                href={`${baseUrl}/about-us`} 
                 className="font-gilda text-white hover:text-[hsla(23,91.9%,70%,1)] uppercase tracking-widest text-2xl transition-colors"
                 onClick={toggleMobileMenu}
               >
@@ -132,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             {/* Engage With Us Button */}
             <div className="mt-auto mb-8 text-center">
               <a 
-                href="#engage" 
+                href={`${baseUrl}/engage`} 
                 className="inline-block px-10 py-4 border border-white text-white font-gilda uppercase tracking-widest text-lg hover:bg-white hover:text-[#2A2A2A] transition-colors"
                 onClick={toggleMobileMenu}
               >

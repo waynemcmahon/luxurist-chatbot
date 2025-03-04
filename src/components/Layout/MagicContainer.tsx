@@ -21,17 +21,18 @@ const fadeIn = {
   })
 };
 
+
 export default function MagicContainer({children}: {children: React.ReactNode}) {
   return (
     <div>
         <Header />
-    <div className="h-[calc(100vh-100px)] flex flex-col">
+    <div className="mx-auto h-[calc(100vh-100px)] flex flex-col bg-white">
       
       {/* Main section with TypeFormChat component */}
       <section className="flex-1 flex flex-col lg:flex-row-reverse ">
         {/* Left column - Image */}
         <motion.div 
-          className="w-full lg:w-1/3 relative h-[40vh] lg:h-[calc(100vh-100px)]"
+          className="w-full lg:w-2/5 relative h-[40vh] lg:h-[calc(100vh-100px)]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
@@ -73,8 +74,8 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
         </motion.div>
         
         {/* Right column - TypeFormChat Component */}
-        <div className="w-full lg:w-2/3 flex flex-col justify-center p-8 md:p-12 lg:p-16 bg-white">
-          <div className="max-w-xl mx-auto w-full">
+        <div className="w-full lg:w-3/5 flex flex-col justify-center  p-8 md:p-12 lg:p-16 bg-white">
+          <div className="max-w-4xl mx-auto w-full">
             <motion.div 
               className="mb-2 uppercase tracking-widest text-[#913b06] text-sm font-light"
               initial="hidden"
