@@ -6,7 +6,7 @@ import { Header } from "@/components/Layout/Header";
 import { Footer } from "@/components/Layout/Footer";
 import Image from "next/image";
 import { VoiceflowChatProduction } from "@/components/VoiceflowChat/VoiceflowChat";
-
+import { Cta } from "@/components/Cta";
 export default function HomePage() {
   return (
     <>
@@ -53,7 +53,7 @@ export default function HomePage() {
           {/* Right Column - Image */}
           <div className="relative lg:col-span-6 xl:absolute xl:inset-0 xl:left-2/3 rounded-xl m-12">
             <Image
-              src="/images/rabbit_magic.jpg"
+              src="/images/rabbit_magic_portrait.jpg"
               alt="Luxury Travel Experience"
               className="aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full rounded-xl"
               fill
@@ -70,20 +70,8 @@ export default function HomePage() {
       </div>
       
       {/* Call To Action Section */}
-      <div className="relative h-[500px] bg-gray-900">
-      <Image src="/images/cta_image.jpg" alt="Luxury Travel Experience" fill style={{ objectFit: "cover" }} />
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="text-center text-white max-w-3xl px-4">
-            <h2 className="font-gilda text-4xl md:text-5xl mb-6">Join the new luxury travel ecosystem</h2>
-            <p className="font-hanken font-extralight mb-8 text-lg">
-              Powered by travel specialists bringing the luxury experts for luxury travel
-            </p>
-            <a href="#engage" className="inline-block bg-[hsla(23,91.9%,29.53%,1)] px-8 py-4 uppercase tracking-widest text-sm font-light hover:bg-[hsla(23,91.9%,35%,1)] transition-all duration-300">
-              Engage With Us
-            </a>
-          </div>
-        </div>
-      </div>
+
+      <Cta />
       <Footer />
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
 
 interface TypeFormChatProps {
   placement?: 'inline' | 'floating';
@@ -177,7 +178,6 @@ const CheckmarkAnimation = () => {
 declare global {
   interface Window {
     botpoison: any;
-    $: any;
   }
 }
 
@@ -204,7 +204,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
   });
 
   const containerClasses = placement === 'inline'
-    ? 'w-full bg-white shadow-lg p-8'
+    ? 'w-full bg-white'
     : 'fixed bottom-5 right-5 w-[350px] h-[500px] z-50 shadow-lg rounded-xl bg-white';
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -222,41 +222,24 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
         timestamp: new Date().toISOString()
       };
 
-      await new Promise((resolve, reject) => {
-        window.$.ajax({
-          url: `https://submit-form.com/${formsparkId}`,
-          method: "POST",
-          data: formDataObj,
-          dataType: "json",
-          success: async function() {
-            // If Google Sheets URL is provided, submit there as well
-            if (googleSheetsUrl) {
-              try {
-                window.$.ajax({
-                  url: googleSheetsUrl,
-                  method: "GET", // Changed to GET as Google Scripts handles this better
-                  data: formDataObj,
-                  dataType: "jsonp",
-                  crossDomain: true,
-                  success: function(response: { result: string }) {
-                    console.log('Google Sheets submission successful:', response);
-                  },
-                  error: function(err: { message: string }) {
-                    console.error('Failed to submit to Google Sheets, but FormSpark submission was successful:', err);
-                    console.log('Google Sheets submission error:', err.message);
-                  }
-                });
-              } catch (error) {
-                console.error('Google Sheets submission error:', error);
-              }
+      // Submit to FormSpark
+      await axios.post(`https://submit-form.com/${formsparkId}`, formDataObj);
+      
+      // If Google Sheets URL is provided, submit there as well
+      if (googleSheetsUrl) {
+        try {
+          // Use GET method with params for Google Scripts
+          await axios.get(googleSheetsUrl, {
+            params: formDataObj,
+            headers: {
+              'Content-Type': 'application/json'
             }
-            resolve(true);
-          },
-          error: function(err: { statusText: string }) {
-            reject(new Error(err.statusText));
-          }
-        });
-      });
+          });
+          console.log('Google Sheets submission successful');
+        } catch (error) {
+          console.error('Failed to submit to Google Sheets, but FormSpark submission was successful:', error);
+        }
+      }
 
       // Move to thank you step
       setStep(2);
@@ -311,21 +294,6 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
             animate="animate"
             exit="exit"
           >
-            <div className="flex flex-col space-y-4">
-              <motion.span 
-                variants={staggerItem}
-                className="text-2xl gilda-display leading-tight font-extralight text-gray-700"
-              >
-                Ready to create an unforgettable journey for your guests?
-              </motion.span>
-              <motion.p 
-                variants={staggerItem}
-                className="text-gray-700 font-extralight hanken-grotesk text-left"
-              >
-                Simply share your travel vision with us below.
-              </motion.p>
-            </div>
-
             <motion.div 
               variants={staggerItem}
               className="flex-grow"
@@ -336,7 +304,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
                 required
                 onChange={(e) => setFormData({ ...formData, vision: e.target.value })}
                 placeholder="Couple + 2 kids planning a trip from NYC to Italy second week of March, foody and family activities…"
-                className="w-full h-full p-4 border border-gray-200 min-h-40 shadow resize-none focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] hanken-grotesk placeholder:text-gray-400 placeholder:font-extralight"
+                className="w-full h-full p-4 min-h-40 text-lg shadow resize-none hanken-grotesk placeholder:text-gray-400 placeholder:font-extralight focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] focus:ring-offset-0 focus:border-transparent"
               />
             </motion.div>
             <motion.button
@@ -377,9 +345,9 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
             </motion.p>
             <motion.div 
               variants={staggerItem}
-              className="space-y-4 flex-1"
+              className="space-y-8 flex-1"
             >
-              <div className="space-y-1">
+              <div className="space-y-4">
                 <motion.input
                   variants={staggerItem}
                   type="email"
@@ -388,7 +356,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
                   onChange={handleEmailChange}
                   placeholder="Your email"
                   required
-                  className={`w-full p-4 border focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] hanken-grotesk ${
+                  className={`w-full p-4 border focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] focus:ring-offset-0 focus:border-transparent hanken-grotesk ${
                     !validation.email.isValid ? 'border-red-500 focus:ring-red-500' : 'border-gray-200'
                   }`}
                 />
@@ -403,7 +371,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
                   </motion.p>
                 )}
               </div>
-              <div className="space-y-1">
+              <div className="space-y-4">
                 <label htmlFor="country" className="block text-sm hanken-grotesk font-extralight text-gray-600 mb-1">
                   Which country are you located in?
                 </label>
@@ -414,7 +382,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
                   value={formData.country}
                   onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                   required
-                  className="w-full p-4 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] hanken-grotesk bg-white"
+                  className="w-full p-4 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] focus:ring-offset-0 focus:border-transparent hanken-grotesk bg-white"
                 >
                   <option value="">Select your country</option>
                   {COUNTRIES.map((country) => (
@@ -435,7 +403,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
                   checked={formData.consent}
                   onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
                   required
-                  className="w-4 h-4 border-gray-300 text-primary focus:ring-primary bg-white"
+                  className="w-4 h-4 border-gray-300 text-primary focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,1)] focus:ring-offset-0 bg-white"
                 />
                 <label htmlFor="privacy-consent" className="text-xs hanken-grotesk font-extralight text-gray-600">
                   I CONSENT TO RECEIVE COMMUNICATIONS AS PER THE{' '}
@@ -519,7 +487,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
   };
 
   return (
-    <div className={`${containerClasses} overflow-hidden relative`}>
+    <div className={`${containerClasses} overflow-hidden relative pt-4`}>
       <ProgressBar step={step} totalSteps={3} />
       <div className="pt-2 h-full">
         <AnimatePresence mode="wait">
