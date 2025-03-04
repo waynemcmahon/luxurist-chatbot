@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "production",
-  entry: "./src/webflow/index.tsx",
   output: {
     filename: "luxurist-chatbot.js",
     path: path.resolve(__dirname, "public/dist"),
