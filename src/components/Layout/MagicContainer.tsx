@@ -32,7 +32,7 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
       <section className="flex-1 flex flex-col lg:flex-row-reverse ">
         {/* Left column - Image */}
         <motion.div 
-          className="w-full lg:w-2/5 relative h-[30vh] lg:h-[calc(100vh-100px)]"
+          className="w-full lg:w-2/5 relative h-[30vh] lg:h-[calc(100vh-100px)] hidden lg:block"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
