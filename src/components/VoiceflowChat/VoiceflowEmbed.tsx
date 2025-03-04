@@ -51,7 +51,6 @@ export const VoiceflowEmbed = ({
     script.onload = () => {
       scriptLoaded.current = true;
       
-      // Only initialize if not already done and container exists
       if (!chatInitialized.current && containerRef.current && window.voiceflow?.chat) {
         chatInitialized.current = true;
         console.log(projectId)
