@@ -22,17 +22,17 @@ export default function EmbedPage() {
                     apiKey="VF.DM.67ab976fdff1966a91447558.CImdqyUJEKp6iym7"
                     showHeaderAndTitle={false}
                   /> */}
-                   <VoiceflowChatProduction
+                    <VoiceflowChatProduction
                     placement="inline"
                     projectId="67925daa7d35e219e09dfbad"
                     apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
                     showHeaderAndTitle={false}
                   />
-{/* 
-        <VoiceflowEmbed
+
+        {/* <VoiceflowEmbed
         projectId="67925daa7d35e219e09dfbad"
         apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
-        /> */}
+        />  */}
     
                 </div>
               </div>

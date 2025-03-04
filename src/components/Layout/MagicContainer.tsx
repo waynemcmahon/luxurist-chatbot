@@ -112,8 +112,7 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
                   custom={1.0}
                   variants={fadeIn}
                 >
-                  Simply share your client's project here below and our concierge team will send you back a full quoted itinerary in a few minutes in your inbox    
-                </motion.p>
+Simply share your client's project below and our concierge team will send you a fully quoted itinerary in just a few minutes directly to your inbox.                </motion.p>
               </div>
             </motion.div>
             
