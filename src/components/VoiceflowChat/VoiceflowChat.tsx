@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useRef } from 'react';
-
+import { COUNTRIES } from '@/helpers';
 interface VoiceflowChatProps {
   projectId: string;
   apiKey: string;
@@ -11,10 +11,16 @@ interface VoiceflowChatProps {
   showHeaderAndTitle?: boolean;
 }
 
+interface Country {
+  code: string;
+  name: string;
+}
+
 interface Message {
   type: 'user' | 'assistant';
   content: string;
   id: string; // Add unique ID to prevent duplicate rendering
+  hasDropdown?: boolean; // Add this to track if message should show dropdown
 }
 
 interface Button {
@@ -45,6 +51,7 @@ export const VoiceflowChat = ({
   const [inputValue, setInputValue] = useState('');
   const [buttons, setButtons] = useState<Button[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState<string>('');
   const chatEndRef = useRef<HTMLDivElement>(null);
   const userId = useRef(`user-${Math.random().toString(36).substring(7)}`);
   const [currentStep, setCurrentStep] = useState(0);
@@ -57,6 +64,24 @@ export const VoiceflowChat = ({
     interests: '',
     travelDate: ''
   });
+
+  // Add animation tracking state for new messages
+  const [newMessageIds, setNewMessageIds] = useState<string[]>([]);
+
+  // Add handler for country selection
+  const handleCountrySelect = async (countryName: string) => {
+    setSelectedCountry(countryName);
+    if (countryName) {
+      // Send structured data to Voiceflow
+      await interact({ 
+        type: 'text', 
+        payload: JSON.stringify({
+          type: 'country_location_ta',
+          country: countryName,
+        })
+      });
+    }
+  };
 
   // Dynamic container classes based on placement
   const containerClasses = placement === 'inline'
@@ -143,13 +168,19 @@ export const VoiceflowChat = ({
 
       let newMessages: Message[] = [];
       let newButtons: Button[] = [];
+      let newIds: string[] = [];
 
       for (const trace of traces) {
         if (trace.type === 'text') {
+          const content = trace.payload.message;
+          const hasDropdown = content.includes('[DROPDOWN]');
+          const messageId = generateMessageId();
+          newIds.push(messageId);
           newMessages.push({
             type: 'assistant',
-            content: trace.payload.message,
-            id: generateMessageId()
+            content: hasDropdown ? content.replace('[DROPDOWN]', '') : content,
+            id: messageId,
+            hasDropdown
           });
         } else if (trace.type === 'choice') {
           newButtons = trace.payload.buttons;
@@ -160,7 +191,11 @@ export const VoiceflowChat = ({
 
       if (newMessages.length > 0) {
         setMessages(prev => [...prev, ...newMessages]);
-        setTimeout(scrollToBottom, 100);
+        setNewMessageIds(newIds);
+        setTimeout(() => {
+          setNewMessageIds([]);
+          scrollToBottom();
+        }, 200); // Clear animation state after animation completes
       }
       
       if (newButtons.length > 0) {
@@ -184,26 +219,39 @@ export const VoiceflowChat = ({
   const handleSendMessage = async (text: string) => {
     if (!text.trim()) return;
 
+    const messageId = generateMessageId();
+    setNewMessageIds([messageId]);
     setMessages(prev => [...prev, { 
       type: 'user', 
       content: text,
-      id: generateMessageId()
+      id: messageId
     }]);
     setInputValue('');
     setButtons([]);
-    setTimeout(scrollToBottom, 100);
+    
+    setTimeout(() => {
+      scrollToBottom();
+      setNewMessageIds([]);
+    }, 200);
 
     await interact({ type: 'text', payload: text });
   };
 
   const handleButtonClick = async (button: Button) => {
+    const messageId = generateMessageId();
+    setNewMessageIds([messageId]);
     setMessages(prev => [...prev, { 
       type: 'user', 
       content: button.name,
-      id: generateMessageId()
+      id: messageId
     }]);
     setButtons([]);
-    setTimeout(scrollToBottom, 100);
+    
+    setTimeout(() => {
+      scrollToBottom();
+      setNewMessageIds([]);
+    }, 500);
+    
     await interact(button.request);
   };
 
@@ -234,12 +282,18 @@ export const VoiceflowChat = ({
     if (!isSimulation || simulationComplete) return;
 
     const addMessage = (content: string, type: 'assistant' | 'user') => {
+      const messageId = generateMessageId();
+      setNewMessageIds([messageId]);
       setMessages(prev => [...prev, { 
         type, 
         content,
-        id: generateMessageId()
+        id: messageId
       }]);
-      setTimeout(scrollToBottom, 100);
+      
+      setTimeout(() => {
+        scrollToBottom();
+        setNewMessageIds([]);
+      }, 500);
     };
 
     for (let i = 0; i < simulationSteps.length; i++) {
@@ -247,7 +301,7 @@ export const VoiceflowChat = ({
       
       // Show typing indicator before assistant's message
       setIsLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Show typing for 1.5s
+      await new Promise(resolve => setTimeout(resolve, 100)); // Show typing for 1.5s
       setIsLoading(false);
       
       // Add assistant's question
@@ -268,7 +322,7 @@ export const VoiceflowChat = ({
   return (
     <div
       id="voiceflow-chat-container"
-      className={`transition-all duration-500 ease-in-out max-h-[500px] h-[500px] hanken-grotesk ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
+      className={`transition-all duration-500 ease-in-out h-full hanken-grotesk ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} ${containerClasses}`}
       aria-live="polite"
       role="region"
       aria-label="Chat interface"
@@ -290,7 +344,9 @@ export const VoiceflowChat = ({
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} message ${message.type}`}
+                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} message ${message.type} ${
+                  newMessageIds.includes(message.id) ? 'animate-fade-up' : ''
+                }`}
               >
                 <div
                   className={`max-w-[80%] px-4 py-2 hanken-grotesk font-light ${
@@ -300,13 +356,33 @@ export const VoiceflowChat = ({
                   }`}
                 >
                   {message.content}
+                  {message.hasDropdown && (
+                    <div className="mt-2">
+                      <select
+                        value={selectedCountry}
+                        onChange={(e) => handleCountrySelect(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[hsla(23,91.9%,29.53%,0.3)] hanken-grotesk font-light bg-white rounded-md"
+                        disabled={isSimulation || isLoading}
+                        aria-label="Select a destination country"
+                      >
+                        <option value="">Choose a country...</option>
+                        {COUNTRIES.map((country) => (
+                          <option key={country} value={country}>
+                            {country}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 text-gray-800 px-4 py-2 typing hanken-grotesk">
-                  typing...
+                <div className="bg-gray-100 text-gray-800 px-4 py-4 hanken-grotesk flex items-center space-x-1">
+                  <span className="h-2 w-2 bg-gray-500 rounded-full animate-loading-dot"></span>
+                  <span className="h-2 w-2 bg-gray-500 rounded-full animate-loading-dot" style={{ animationDelay: '200ms' }}></span>
+                  <span className="h-2 w-2 bg-gray-500 rounded-full animate-loading-dot" style={{ animationDelay: '400ms' }}></span>
                 </div>
               </div>
             )}

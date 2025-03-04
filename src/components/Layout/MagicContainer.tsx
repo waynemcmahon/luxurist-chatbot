@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Header } from "@/components/Layout/Header";
 import { Footer } from "@/components/Layout/Footer";
 import { motion } from "framer-motion";
-
+import { Quote } from "@/components/Quote";
 // Animation variants for staggered animations
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -24,15 +24,15 @@ const fadeIn = {
 
 export default function MagicContainer({children}: {children: React.ReactNode}) {
   return (
-    <div>
+    <div className="bg-[#FDF8F3]">
         <Header />
-    <div className="mx-auto h-[calc(100vh-100px)] flex flex-col bg-white">
+    <div className="mx-auto flex flex-col">
       
       {/* Main section with TypeFormChat component */}
       <section className="flex-1 flex flex-col lg:flex-row-reverse ">
         {/* Left column - Image */}
         <motion.div 
-          className="w-full lg:w-2/5 relative h-[40vh] lg:h-[calc(100vh-100px)]"
+          className="w-full lg:w-2/5 relative h-[30vh] lg:h-[calc(100vh-100px)]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
@@ -65,7 +65,7 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
             custom={1.4}
             variants={fadeIn}
           >
-            <div className="px-8 px-4 md:py-6 py-4">
+            <div className="px-6 md:py-6 py-4">
               <h3 className="font-gilda text-3xl text-white">
                 Let the <span className="md:text-[#906d4e]">Magic</span> begin...
               </h3>
@@ -74,7 +74,7 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
         </motion.div>
         
         {/* Right column - TypeFormChat Component */}
-        <div className="w-full lg:w-3/5 flex flex-col justify-center  p-8 md:p-12 lg:p-16 bg-white">
+        <div className="w-full lg:w-3/5 flex flex-col justify-center my-8  p-8 md:p-12 lg:p-16">
           <div className="max-w-4xl mx-auto w-full">
             <motion.div 
               className="mb-2 uppercase tracking-widest text-[#913b06] text-sm font-light"
@@ -95,40 +95,31 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
               Magic Quote
             </motion.h1>
             <motion.div 
-              className="mt-6 space-y-6 font-light"
+              className="mt-4 md:mt-6 space-y-6 font-light"
               initial="hidden"
               animate="visible"
               custom={0.8}
               variants={fadeIn}
             >
-              <p className="text-lg md:text-xl text-gray-900">
-                Get your Magic Quote in just <span className="font-semibold">2 easy steps</span> :
-              </p>
+              {/* <p className="text-lg md:text-xl text-gray-900">
+                Get your Magic Quote in just <span className="font-semibold">2 easy steps</span>:
+              </p> */}
               <div className="space-y-4">
                 <motion.p 
-                  className="text-lg md:text-xl text-gray-900"
+                  className="text-lg md:text-xl max-w-2xl text-gray-900"
                   initial="hidden"
                   animate="visible"
                   custom={1.0}
                   variants={fadeIn}
                 >
-                  <span className="font-semibold">Step 1 :</span> Simply share your client's travel project in just 10 seconds.
-                </motion.p>
-                <motion.p 
-                  className="text-lg md:text-xl text-gray-900"
-                  initial="hidden"
-                  animate="visible"
-                  custom={1.2}
-                  variants={fadeIn}
-                >
-                  <span className="font-semibold">Step 2 :</span> Our concierge will prepare a customized travel plan according to your specifications, featuring our dynamic pricing system that automatically recalculates costs whenever you adjust any part of the itinerary. We'll deliver this directly to your email inbox.
+                  Simply share your client's project here below and our concierge team will send you back a full quoted itinerary in a few minutes in your inbox    
                 </motion.p>
               </div>
             </motion.div>
             
             {/* TypeFormChat component displayed directly */}
             <motion.div 
-              className="mt-8 min-h-[400px] flex"
+              className="mt-4 md:mt-8 flex"
               initial="hidden"
               animate="visible"
               custom={1.6}
@@ -149,6 +140,7 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
         custom={2.0}
         variants={fadeIn}
       >
+        {/* <Quote /> */}
       <Cta />
       </motion.div>
     </div>

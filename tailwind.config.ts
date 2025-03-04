@@ -17,6 +17,25 @@ const config: Config = {
         gilda: ['Gilda Display', 'serif'],
         hanken: ['Hanken Grotesk', 'sans-serif'],
       },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        'loadingDot': {
+          '0%': { transform: 'scale(0.8)', opacity: '0.6' },
+          '50%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(0.8)', opacity: '0.6' }
+        }
+      },
+      animation: {
+        'fade-up': 'fade-up 0.5s ease-out forwards',
+        'loading-dot': 'loadingDot 1.4s ease-in-out infinite'
+      },
+      transitionDelay: {
+        '200': '200ms',
+        '400': '400ms',
+      },
     },
   },
   safelist: [
@@ -89,6 +108,10 @@ const config: Config = {
     'flex-1',
     'disabled:opacity-50',
     'disabled:cursor-not-allowed',
+    'animate-fade-up',
+    'animate-loading-dot',
+    'delay-200',
+    'delay-400',
   ],
   plugins: [],
 };
