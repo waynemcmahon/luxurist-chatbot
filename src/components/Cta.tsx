@@ -15,12 +15,12 @@ export const Cta = () => {
   return (
     <div className="flex flex-col lg:flex-row-reverse h-[500px]">
       {/* Left content - Text */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16">
+      <div className="w-full lg:w-1/2 flex items-center md:justify-center p-8 lg:p-16">
         <div className="text-gray-900 max-w-xl">
           <h2 className="font-gilda text-4xl md:text-5xl mb-6">
             Join the new luxury travel ecosystem
           </h2>
-          <p className="font-hanken font-extralight mb-8 text-lg">
+          <p className="font-hanken font-extralight mb-8 text-lg max-w-sm">
             Powered by travel specialists bringing the luxury experts for luxury
             travel
           </p>
