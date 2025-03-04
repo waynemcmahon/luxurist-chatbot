@@ -5,9 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:webflow": "webpack --mode production",
     "start": "next start",
-    "vercel-build": "npm run build && npm run build:webflow"
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "axios": "^1.8.1",
