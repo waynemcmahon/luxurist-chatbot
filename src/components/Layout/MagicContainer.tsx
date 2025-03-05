@@ -22,10 +22,10 @@ const fadeIn = {
 };
 
 
-export default function MagicContainer({children}: {children: React.ReactNode}) {
+export default function MagicContainer({children, showHeaderFooter = true}: {children: React.ReactNode, showHeaderFooter?: boolean}) {
   return (
     <div className="bg-[#FDF8F3]">
-        <Header />
+        {showHeaderFooter && <Header />}
     <div className="mx-auto flex flex-col">
       
       {/* Main section with TypeFormChat component */}
@@ -144,7 +144,7 @@ export default function MagicContainer({children}: {children: React.ReactNode}) 
       <Cta />
       </motion.div>
     </div>
-    {/* <Footer /> */}
+    {showHeaderFooter && <Footer />}
     </div>
 
   );
