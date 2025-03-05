@@ -22,7 +22,7 @@ const fadeIn = {
 };
 
 
-export default function MagicContainer({children, showHeaderFooter = true}: {children: React.ReactNode, showHeaderFooter?: boolean}) {
+export default function MagicContainer({children, showHeaderFooter = true, showCta = true, showImage = true}: {children: React.ReactNode, showHeaderFooter?: boolean, showCta?: boolean, showImage?: boolean}) {
   return (
     <div className="bg-[#FDF8F3]">
         {showHeaderFooter && <Header />}
@@ -31,6 +31,7 @@ export default function MagicContainer({children, showHeaderFooter = true}: {chi
       {/* Main section with TypeFormChat component */}
       <section className="flex-1 flex flex-col lg:flex-row-reverse ">
         {/* Left column - Image */}
+        {showImage && (
         <motion.div 
           className="w-full lg:w-2/5 relative h-[30vh] lg:h-[calc(100vh-100px)] hidden lg:block"
           initial={{ opacity: 0 }}
@@ -72,9 +73,10 @@ export default function MagicContainer({children, showHeaderFooter = true}: {chi
             </div>
           </motion.div>
         </motion.div>
+        )}
         
         {/* Right column - TypeFormChat Component */}
-        <div className="w-full lg:w-3/5 flex flex-col justify-center my-8  p-8 md:p-12 lg:p-16">
+        <div className={`w-full flex flex-col justify-center my-8  p-8 md:p-12 lg:p-16 ${showImage ? 'lg:w-3/5' : 'lg:w-full'}`}>
           <div className="max-w-4xl mx-auto w-full">
             <motion.div 
               className="mb-2 uppercase tracking-widest text-[#913b06] text-sm font-light"
@@ -141,10 +143,10 @@ export default function MagicContainer({children, showHeaderFooter = true}: {chi
         variants={fadeIn}
       >
         {/* <Quote /> */}
-      <Cta />
+      {showCta && <Cta />}
       </motion.div>
     </div>
-    {showHeaderFooter && <Footer />}
+      {showHeaderFooter && <Footer />}
     </div>
 
   );
