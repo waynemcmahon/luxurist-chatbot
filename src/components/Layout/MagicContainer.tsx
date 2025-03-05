@@ -33,7 +33,7 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
         {/* Left column - Image */}
         {showImage && (
         <motion.div 
-          className="w-full lg:w-2/5 relative h-[30vh] lg:h-[calc(100vh-100px)] hidden lg:block"
+          className={`w-full lg:w-2/5 relative h-[30vh] hidden lg:block ${showHeaderFooter ? 'lg:h-[calc(100vh-100px)]' : 'lg:h-[100vh]'}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
