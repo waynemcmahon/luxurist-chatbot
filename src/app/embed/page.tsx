@@ -7,7 +7,7 @@ import MagicContainer from "@/components/Layout/MagicContainer";
 
 export default function EmbedPage() {
   return (
-    <MagicContainer showHeaderFooter={false} showCta={false} showImage={false}> 
+    <MagicContainer showHeaderFooter={false} showCta={false} showImage={true}> 
       <TypeFormChat 
         placement="inline" 
         formsparkId="Ku1lXEbvx" 
