@@ -455,7 +455,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
             </motion.p>
             <motion.a
               variants={staggerItem}
-              href="/about-us"
+              href="https://www.theluxurist.com/about-us"
               className={`${buttonClasses} ${enabledButtonClasses} max-w-[300px] sm:max-w-full`}
             >
               DISCOVER MORE ABOUT US
