@@ -5,7 +5,7 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/((?!embed|_next/image).*)',
+        source: '/((?!embed|_next/image|images).*)',
         destination: 'https://www.theluxurist.com/magic-quote',
         permanent: true,
       },
