@@ -5,9 +5,9 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/',     // the path to match
-        destination: 'https://www.theluxurist.com/discover', // the path to redirect to
-        permanent: true,          // if true, sends 308 Permanent Redirect
+        source: '/:path*',     // matches all routes
+        destination: 'https://www.theluxurist.com/discover', // all routes go to discover
+        permanent: true,
       },
     ];
   },
