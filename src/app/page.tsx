@@ -8,6 +8,7 @@ import Image from "next/image";
 import { VoiceflowChatProduction } from "@/components/VoiceflowChat/VoiceflowChat";
 import { Cta } from "@/components/Cta";
 import MagicContainer from "@/components/Layout/MagicContainer";
+import { VoiceflowEmbed } from "@/components/VoiceflowChat/VoiceflowEmbed";
 export default function HomePage() {
   // Function to handle iframe load event
   const handleIframeLoaded = () => {
@@ -26,21 +27,25 @@ export default function HomePage() {
       <div className="w-full h-full">
       <div className="h-[350px] 2xl:h-[450px] flex">
               <div className="flex-1 flex flex-col">
-                <iframe 
+                {/* <iframe 
                   id="onboarding-iframe"
                   onLoad={handleIframeLoaded}
                   src="https://www.theluxurist.app/onboarding/" 
                   className="w-full h-full border-none overflow-auto"
                   title="Onboarding Form"
                   aria-label="Onboarding Form for The Luxurist"
+                /> */}
+                <TypeFormChat
+                  placement="inline"
+                  formsparkId="Ku1lXEbvx" 
+                  googleSheetsUrl="https://script.google.com/macros/s/AKfycby9fY9jU76Rb0xVSLNqIiEZgO2-FE7sh4lK1eBFd5-wE6EWXEnMOHr2FM9L9aZ-kCxl5A/exec"
                 />
-                
 {/* 
       <VoiceflowEmbed
       projectId="67925daa7d35e219e09dfbad"
       apiKey="VF.DM.6792ad82550a82bb336c1592.2YxqANarYt5oAXaJ"
-      /> */}
-  
+      />
+   */}
               </div>
             </div>
       </div>
