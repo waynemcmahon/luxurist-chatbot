@@ -39,7 +39,7 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
           transition={{ duration: 1.2 }}
         >
           <Image
-            src="/images/rabbit_magic_portrait.jpg"
+            src="/images/luxurist-cover.jpg"
             alt="Luxury Travel Experience"
             className="object-cover"
             fill
@@ -53,9 +53,9 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
             custom={0.6}
             variants={fadeIn}
           >
-            <h2 className="font-gilda text-4xl text-white hidden md:block font-light leading-tight">
+            {/* <h2 className="font-gilda text-4xl text-white hidden md:block font-light leading-tight">
               Magic<span className="text-[#906d4e]">Quote</span>
-            </h2>
+            </h2> */}
           </motion.div>
           
           {/* Let the magic begin text */}
@@ -66,11 +66,11 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
             custom={1.4}
             variants={fadeIn}
           >
-            <div className="px-6 md:py-6 py-4">
+            {/* <div className="px-6 md:py-6 py-4">
               <h3 className="font-gilda text-3xl text-white">
                 Let the <span className="md:text-[#906d4e]">Magic</span> begin...
               </h3>
-            </div>
+            </div> */}
           </motion.div>
         </motion.div>
         )}
@@ -78,7 +78,7 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
         {/* Right column - TypeFormChat Component */}
         <div className={`w-full flex flex-col justify-center my-8  p-8 md:p-12 lg:p-16 ${showImage ? 'lg:w-3/5' : 'lg:w-full'}`}>
           <div className="max-w-4xl mx-auto w-full">
-            <motion.div 
+            {/* <motion.div 
               className="mb-2 uppercase tracking-widest text-[#913b06] text-sm font-light"
               initial="hidden"
               animate="visible"
@@ -103,9 +103,6 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
               custom={0.8}
               variants={fadeIn}
             >
-              {/* <p className="text-lg md:text-xl text-gray-900">
-                Get your Magic Quote in just <span className="font-semibold">2 easy steps</span>:
-              </p> */}
               <div className="space-y-4">
                 <motion.p 
                   className="text-lg md:text-xl max-w-2xl text-gray-900"
@@ -118,7 +115,7 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
                 </motion.p>
               </div>
             </motion.div>
-            
+             */}
             {/* TypeFormChat component displayed directly */}
             <motion.div 
               className="mt-4 md:mt-8 flex"
