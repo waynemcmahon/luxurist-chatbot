@@ -320,7 +320,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
               variants={staggerItem}
               className="text-gray-700 font-extralight hanken-grotesk text-left"
             >
-              Please share your email address and within minutes, our expert concierges will craft a bespoke itinerary delivered straight to your inbox.
+              Please share your email address and our expert concierges will craft a bespoke itinerary delivered straight to your inbox.
             </motion.p>
             <motion.div 
               variants={staggerItem}
