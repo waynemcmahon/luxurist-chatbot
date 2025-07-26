@@ -85,7 +85,7 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
               custom={0.4}
               variants={fadeIn}
             >
-              We will craft your luxury itineraries, in <span className="font-semibold">Minutes</span>
+              We will craft your luxury itineraries.
             </motion.div>
             <motion.h1 
               className="mt-4 text-5xl md:text-6xl font-gilda text-gray-900 leading-tight"
@@ -114,7 +114,7 @@ export default function MagicContainer({children, showHeaderFooter = true, showC
                   custom={1.0}
                   variants={fadeIn}
                 >
-                  Simply share your client's project here below and our concierge team will send you back a full quoted itinerary in a few minutes in your inbox    
+                  Simply share your client's project here below and our concierge team will send you back a full quoted itinerary to your inbox
                 </motion.p>
               </div>
             </motion.div>

@@ -442,7 +442,7 @@ export const TypeFormChat: React.FC<TypeFormChatProps> = ({
               className="text-gray-600 hanken-grotesk max-w-sm"
             >
               Our human-expert concierge is crafting every detail right now. 
-              Check your inbox in a few minutes to discover your
+              Check your inbox soon to discover your
               complete, custom-priced journey.
             </motion.p>
             <motion.p 

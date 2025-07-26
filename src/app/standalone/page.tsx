@@ -60,7 +60,7 @@ export default function StandalonePage() {
                 </div>
                 <h3 className="text-xl font-gilda text-gray-800 mb-2">Quick Response</h3>
                 <p className="text-gray-600 font-extralight">
-                  Receive your custom itinerary within minutes, complete with pricing and booking options.
+                  Receive your custom itinerary complete with pricing and booking options.
                 </p>
               </div>
             </div>

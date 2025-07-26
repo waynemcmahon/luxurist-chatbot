@@ -8,7 +8,7 @@ export default function EmbedPage() {
       {/* Mobile-only Magic Quote Header */}
       <header className="lg:hidden text-center py-4 bg-white border-b">
         <div className="uppercase tracking-widest text-[hsla(23,91.9%,29.53%,1)] text-sm font-light mb-1">
-          We will craft your luxury itineraries, in <span className="font-semibold">Minutes</span>
+          We will craft your luxury itineraries
         </div>
         <h1 className="text-2xl font-gilda text-[#0f0f0f]">Magic Quote</h1>
       </header>
